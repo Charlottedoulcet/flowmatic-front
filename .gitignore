@@ -30,4 +30,4 @@ dist-ssr
 # Claude Code
 .claude
 .agents
-skills-lock.json  
+skills-lock.json    
