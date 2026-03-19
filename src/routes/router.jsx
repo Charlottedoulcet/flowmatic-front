@@ -2,7 +2,7 @@ import { createBrowserRouter, Navigate } from "react-router-dom";
 import ProtectedRoute from "./ProtectedRoute";
 import RoleRoute from "./RoleRoute";
 import LoginPage from "../pages/Login/LoginPage";
-// import RegisterPage from "../pages/Login/RegisterPage"; // T-1.4
+import RegisterPage from "../pages/Login/RegisterPage";
 
 // Décommente au fur et à mesure des tâches :
 // import DashboardPage from '../pages/Dashboard/DashboardPage';     // T-2.4
@@ -14,7 +14,7 @@ import LoginPage from "../pages/Login/LoginPage";
 
 export const router = createBrowserRouter([
   { path: "/login", element: <LoginPage /> },
-  { path: "/register", element: <div>Register — T-1.4</div> },
+  { path: "/register", element: <RegisterPage /> },
 
   {
     path: "/dashboard",

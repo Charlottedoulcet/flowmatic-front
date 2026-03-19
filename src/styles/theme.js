@@ -15,8 +15,8 @@ const theme = createTheme({
       paper: "#FFFFFF",
     },
     text: {
-      primary: "#111827", // titres, texte important
-      secondary: "#6B7280", // labels, infos secondaires
+      primary: "#111827",
+      secondary: "#6B7280",
     },
   },
   typography: {
