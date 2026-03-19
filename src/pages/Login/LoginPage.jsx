@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link as RouterLink } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
+import MuiLink from "@mui/material/Link";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import Alert from "@mui/material/Alert";
@@ -44,7 +45,7 @@ export default function LoginPage() {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        bgcolor: "#F3F4F6",
+        bgcolor: "background.default",
         px: 2,
       }}
     >
@@ -69,7 +70,7 @@ export default function LoginPage() {
               justifyContent: "center",
             }}
           >
-            <Typography sx={{ color: "#fff", fontWeight: 700, fontSize: "16px" }}>F</Typography>
+            <Typography sx={{ color: "common.white", fontWeight: 700, fontSize: "16px" }}>F</Typography>
           </Box>
           <Typography sx={{ fontWeight: 600, fontSize: "18px", color: "text.primary" }}>Flowmatic</Typography>
         </Box>
@@ -106,9 +107,9 @@ export default function LoginPage() {
         <Box textAlign="center">
           <Typography variant="body2" color="text.secondary">
             Pas encore de compte ?{" "}
-            <Link to="/register" style={{ color: "#3B82F6", fontWeight: 600, textDecoration: "none" }}>
+            <MuiLink component={RouterLink} to="/register" color="primary" fontWeight={600} underline="none">
               Créer une agence
-            </Link>
+            </MuiLink>
           </Typography>
         </Box>
       </Paper>
