@@ -42,6 +42,11 @@ const theme = createTheme({
         root: { fontWeight: 600, fontSize: "11px" },
       },
     },
+    MuiFormHelperText: {
+      styleOverrides: {
+        root: { marginLeft: 0 },
+      },
+    },
     MuiTableHead: {
       styleOverrides: {
         root: { background: "#FAFAFA" },
