@@ -57,7 +57,6 @@ export default function LoginPage() {
           borderRadius: 3,
         }}
       >
-        {/* Logo */}
         <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 1.5, mb: 3 }}>
           <Box
             sx={{
@@ -72,17 +71,10 @@ export default function LoginPage() {
           >
             <Typography sx={{ color: "#fff", fontWeight: 700, fontSize: "16px" }}>F</Typography>
           </Box>
-          <Typography sx={{ fontWeight: 600, fontSize: "18px", color: "text.primary" }}>
-            flowmatic
-          </Typography>
+          <Typography sx={{ fontWeight: 600, fontSize: "18px", color: "text.primary" }}>Flowmatic</Typography>
         </Box>
 
-        {/* Titre */}
-        <Typography
-          variant="h5"
-          textAlign="center"
-          sx={{ fontWeight: 700, fontSize: "22px", color: "text.primary", mb: 0.5 }}
-        >
+        <Typography variant="h5" textAlign="center" sx={{ fontWeight: 700, fontSize: "22px", color: "text.primary", mb: 0.5 }}>
           Bienvenue
         </Typography>
         <Typography variant="body2" color="text.secondary" textAlign="center" mb={3}>
@@ -96,44 +88,17 @@ export default function LoginPage() {
         )}
 
         <Box component="form" onSubmit={handleSubmit(onSubmit)}>
-          {/* Email */}
-          <Typography variant="body2" sx={{ fontWeight: 500, color: "text.primary", mb: 0.5 }}>
+          <Typography variant="body2" sx={{ fontWeight: 500, color: "text.primary", mb: 0.5, textAlign: "left" }}>
             Adresse email
           </Typography>
-          <TextField
-            fullWidth
-            type="email"
-            placeholder="ex: charlotte@agencesoleil.com"
-            autoComplete="email"
-            {...register("email", { required: "L'adresse email est requise" })}
-            error={!!errors.email}
-            helperText={errors.email?.message}
-            sx={{ mb: 2 }}
-          />
+          <TextField fullWidth type="email" placeholder="ex: charlotte@agencesoleil.com" autoComplete="email" {...register("email", { required: "L'adresse email est requise" })} error={!!errors.email} helperText={errors.email?.message} sx={{ mb: 2 }} />
 
-          {/* Mot de passe */}
-          <Typography variant="body2" sx={{ fontWeight: 500, color: "text.primary", mb: 0.5 }}>
+          <Typography variant="body2" sx={{ fontWeight: 500, color: "text.primary", mb: 0.5, textAlign: "left" }}>
             Mot de passe
           </Typography>
-          <TextField
-            fullWidth
-            type="password"
-            placeholder="••••••••"
-            autoComplete="current-password"
-            {...register("password", { required: "Le mot de passe est requis" })}
-            error={!!errors.password}
-            helperText={errors.password?.message}
-            sx={{ mb: 3 }}
-          />
+          <TextField fullWidth type="password" placeholder="••••••••" autoComplete="current-password" {...register("password", { required: "Le mot de passe est requis" })} error={!!errors.password} helperText={errors.password?.message} sx={{ mb: 3 }} />
 
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            size="large"
-            disabled={loading}
-            sx={{ mb: 2, py: 1.5, fontSize: "15px" }}
-          >
+          <Button type="submit" fullWidth variant="contained" size="large" disabled={loading} sx={{ mb: 2, py: 1.5, fontSize: "15px" }}>
             {loading ? <CircularProgress size={24} color="inherit" /> : "Se connecter"}
           </Button>
         </Box>
