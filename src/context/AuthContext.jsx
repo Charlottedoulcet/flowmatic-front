@@ -11,7 +11,9 @@ export function AuthProvider({ children }) {
 
   const login = useCallback((authResponse) => {
     const userData = {
+      id: authResponse.userId,
       firstName: authResponse.firstName,
+      lastName: authResponse.lastName,
       roles: authResponse.roles,
     };
 
