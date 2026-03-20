@@ -10,11 +10,11 @@ import { useAuth } from "../context/useAuth";
 import { useTheme } from "@mui/material/styles";
 
 export default function Navbar() {
-  const { roles, logout } = useAuth();
+  const { user, logout, hasRole } = useAuth();
   const navigate = useNavigate();
   const theme = useTheme();
   const sidebar = theme.palette.sidebar;
-  const isAdmin = roles?.includes("ROLE_ADMIN");
+  const isAdmin = hasRole("ADMIN");
 
   function handleLogout() {
     logout();
