@@ -36,7 +36,8 @@ const theme = createTheme({
     h1: { fontSize: "20px", fontWeight: 700 },
     h2: { fontSize: "16px", fontWeight: 700 },
     h3: { fontSize: "14px", fontWeight: 600 },
-    body1: { fontSize: "13px", color: "#374151" },
+    h4: { fontSize: "32px", fontWeight: 700, lineHeight: 1.2 },
+    body1: { fontSize: "13px" },
     body2: { fontSize: "12px" },
   },
   shape: {

@@ -13,6 +13,7 @@ export function AuthProvider({ children }) {
     const userData = {
       id: authResponse.userId,
       firstName: authResponse.firstName,
+      lastName: authResponse.lastName,
       roles: authResponse.roles,
     };
 

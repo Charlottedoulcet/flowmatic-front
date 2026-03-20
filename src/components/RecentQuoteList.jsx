@@ -24,18 +24,22 @@ export default function RecentQuotesList({ quotes, userId, onStatusChange, onVie
   const displayedQuotes = filter === "mine" ? quotes.filter((q) => q.createdById === userId) : quotes;
 
   return (
-    <Box>
-      <Box sx={{ display: "flex", gap: 1, mb: 2 }}>
-        <Button size="small" variant={filter === "mine" ? "contained" : "outlined"} onClick={() => setFilter("mine")}>
-          Mes devis
-        </Button>
-        <Button size="small" variant={filter === "all" ? "contained" : "outlined"} onClick={() => setFilter("all")}>
-          Tous les devis
-        </Button>
+    <Paper sx={{ borderRadius: 2 }}>
+      {/* En-tête : titre + toggle */}
+      <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", px: 3, py: 2, borderBottom: "1px solid", borderColor: "divider" }}>
+        <Typography variant="h2" color="text.primary">Devis récents</Typography>
+        <Box sx={{ display: "flex", gap: 1 }}>
+          <Button size="small" variant={filter === "mine" ? "contained" : "outlined"} onClick={() => setFilter("mine")}>
+            Mes devis
+          </Button>
+          <Button size="small" variant={filter === "all" ? "contained" : "outlined"} onClick={() => setFilter("all")}>
+            Tous les devis
+          </Button>
+        </Box>
       </Box>
 
       {quotes.length === 0 ? (
-        <Box sx={{ textAlign: "center", py: 10, bgcolor: "background.paper", borderRadius: 2, border: "1px dashed", borderColor: "divider" }}>
+        <Box sx={{ textAlign: "center", py: 10, border: "1px dashed", borderColor: "divider", borderRadius: 2, m: 2 }}>
           <Typography variant="h2" color="text.secondary" gutterBottom>
             Aucun devis pour l'instant
           </Typography>
@@ -47,7 +51,7 @@ export default function RecentQuotesList({ quotes, userId, onStatusChange, onVie
           </Button>
         </Box>
       ) : (
-        <TableContainer component={Paper} sx={{ borderRadius: 2 }}>
+        <TableContainer sx={{ borderRadius: 2 }}>
           <Table>
             <TableHead>
               <TableRow>
@@ -102,6 +106,6 @@ export default function RecentQuotesList({ quotes, userId, onStatusChange, onVie
           </Table>
         </TableContainer>
       )}
-    </Box>
+    </Paper>
   );
 }
