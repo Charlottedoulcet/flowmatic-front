@@ -1,16 +1,16 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
 import ProtectedRoute from "./ProtectedRoute";
 import RoleRoute from "./RoleRoute";
-import LoginPage from "../pages/Login/LoginPage";
-import RegisterPage from "../pages/Login/RegisterPage";
+import LoginPage from "../pages/LoginPage";
+import RegisterPage from "../pages/RegisterPage";
 
 // Décommente au fur et à mesure des tâches :
-// import DashboardPage from '../pages/Dashboard/DashboardPage';     // T-2.4
-// import QuoteCreatePage from '../pages/Quotes/QuoteCreatePage';    // T-3.4
-// import QuoteEditPage from '../pages/Quotes/QuoteEditPage';        // T-3.5
-// import QuotePreviewPage from '../pages/Quotes/QuotePreviewPage';  // T-4.1
-// import SettingsPage from '../pages/Settings/SettingsPage';        // T-6.2
-// import EmployeesPage from '../pages/Employees/EmployeesPage';     // T-5.2
+// import DashboardPage from '../pages/DashboardPage';       // T-2.4
+// import QuoteCreatePage from '../pages/QuoteCreatePage';   // T-3.4
+// import QuoteEditPage from '../pages/QuoteEditPage';       // T-3.5
+// import QuotePreviewPage from '../pages/QuotePreviewPage'; // T-4.1
+// import SettingsPage from '../pages/SettingsPage';         // T-6.2
+// import EmployeesPage from '../pages/EmployeesPage';       // T-5.2
 
 export const router = createBrowserRouter([
   { path: "/login", element: <LoginPage /> },

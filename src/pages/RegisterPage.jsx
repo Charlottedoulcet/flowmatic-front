@@ -10,8 +10,8 @@ import Alert from "@mui/material/Alert";
 import CircularProgress from "@mui/material/CircularProgress";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
-import { useAuth } from "../../context/useAuth";
-import { authService } from "../../services/authService";
+import { useAuth } from "../context/useAuth";
+import { authService } from "../services/authService";
 
 export default function RegisterPage() {
   const { login } = useAuth();

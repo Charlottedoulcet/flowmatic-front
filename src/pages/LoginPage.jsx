@@ -9,8 +9,8 @@ import Typography from "@mui/material/Typography";
 import Alert from "@mui/material/Alert";
 import CircularProgress from "@mui/material/CircularProgress";
 import Paper from "@mui/material/Paper";
-import { useAuth } from "../../context/useAuth";
-import { authService } from "../../services/authService";
+import { useAuth } from "../context/useAuth";
+import { authService } from "../services/authService";
 
 export default function LoginPage() {
   const { login } = useAuth();
@@ -99,7 +99,7 @@ export default function LoginPage() {
           </Typography>
           <TextField fullWidth type="password" placeholder="••••••••" autoComplete="current-password" {...register("password", { required: "Le mot de passe est requis" })} error={!!errors.password} helperText={errors.password?.message} sx={{ mb: 3 }} />
 
-          <Button type="submit" fullWidth variant="contained" size="large" disabled={loading} sx={{ mb: 2, py: 1.5, fontSize: "15px" }}>
+          <Button ton type="submit" fullWidth variant="contained" size="large" disabled={loading} sx={{ mb: 2, py: 1.5, fontSize: "15px" }}>
             {loading ? <CircularProgress size={24} color="inherit" /> : "Se connecter"}
           </Button>
         </Box>
