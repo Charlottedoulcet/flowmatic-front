@@ -18,6 +18,18 @@ const theme = createTheme({
       primary: "#111827",
       secondary: "#6B7280",
     },
+    sidebar: {
+      bg: "#1E1E2E",
+      text: "rgba(255, 255, 255, 0.45)",
+      textActive: "#FFFFFF",
+      textHover: "rgba(255, 255, 255, 0.7)",
+      activeBg: "rgba(255, 255, 255, 0.08)",
+      hoverBg: "rgba(255, 255, 255, 0.04)",
+      divider: "rgba(255, 255, 255, 0.06)",
+      sectionLabel: "rgba(255, 255, 255, 0.2)",
+      logoutHoverBg: "rgba(239, 68, 68, 0.1)",
+      logoutHoverText: "#EF4444",
+    },
   },
   typography: {
     fontFamily: "'Inter', -apple-system, sans-serif",
