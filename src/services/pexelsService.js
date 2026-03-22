@@ -1,4 +1,4 @@
-const PEXELS_API_URL = "https://api.pexels.com.v1";
+const PEXELS_API_URL = "https://api.pexels.com/v1";
 
 export const pexelsService = {
   search: async (query, perPage = 3) => {
