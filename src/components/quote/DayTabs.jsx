@@ -1,6 +1,5 @@
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import Paper from "@mui/material/Paper";
 import Tab from "@mui/material/Tab";
 import Tabs from "@mui/material/Tabs";
 import Typography from "@mui/material/Typography";
@@ -28,21 +27,27 @@ export default function DayTabs({ fields, register, errors, append, remove, acti
   }
 
   return (
-    <Paper sx={{ p: 3, mb: 3 }}>
+    <Box>
       <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 2 }}>
-        <Typography variant="h6">Programme jour par jour</Typography>
+        <Typography variant="h3">Programme jour par jour</Typography>
         <Button size="small" startIcon={<AddIcon />} onClick={handleAddDay}>
           Ajouter un jour
         </Button>
       </Box>
 
       {fields.length === 0 ? (
-        <Typography variant="body2" color="text.secondary" sx={{ py: 2 }}>
+        <Typography variant="body2" color="text.secondary" sx={{ py: 2, textAlign: "center" }}>
           Aucun jour. Importez un PDF ou cliquez sur "Ajouter un jour".
         </Typography>
       ) : (
         <>
-          <Tabs value={activeDay} onChange={(_, v) => setActiveDay(v)} variant="scrollable" scrollButtons="auto" sx={{ mb: 2, borderBottom: 1, borderColor: "divider" }}>
+          <Tabs
+            value={activeDay}
+            onChange={(_, v) => setActiveDay(v)}
+            variant="scrollable"
+            scrollButtons="auto"
+            sx={{ mb: 2, borderBottom: 1, borderColor: "divider" }}
+          >
             {fields.map((field, index) => (
               <Tab key={field.id} label={`Jour ${index + 1}`} />
             ))}
@@ -65,6 +70,6 @@ export default function DayTabs({ fields, register, errors, append, remove, acti
           ))}
         </>
       )}
-    </Paper>
+    </Box>
   );
 }

@@ -93,46 +93,43 @@ export default function QuoteCreatePage() {
 
   return (
     <Box component="form" onSubmit={handleSubmit(onSubmit)}>
-      <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 3 }}>
-        <Box>
-          <Typography variant="h1">Nouveau devis</Typography>
-          <Typography variant="body2" color="text.secondary">
-            Importez un PDF ou remplissez le formulaire manuellement
-          </Typography>
-        </Box>
-        <Button type="submit" variant="contained" disabled={saving}>
-          {saving ? "Enregistrement…" : "Enregistrer le devis"}
-        </Button>
-      </Box>
+      <Typography variant="h1" color="text.primary" sx={{ mb: 3 }}>
+        Nouveau devis
+      </Typography>
 
       <PdfUploadZone onExtract={handlePdfExtract} loading={extracting} />
 
-      <Divider sx={{ my: 3 }}>
-        <Typography variant="caption" color="text.secondary">
-          ou remplir manuellement
-        </Typography>
-      </Divider>
+      <Typography sx={{ textAlign: "center", color: "text.secondary", fontSize: 13, my: 3 }}>— ou créer manuellement —</Typography>
 
-      <Paper sx={{ p: 3, mb: 3 }}>
-        <GeneralInfo register={register} errors={errors} />
-      </Paper>
+      <Paper sx={{ p: 3, mb: 4 }}>
+        <GeneralInfo register={register} control={control} errors={errors} />
 
-      <Paper sx={{ p: 3, mb: 3 }}>
+        <Divider sx={{ my: 4 }} />
+
         <CoverImage setValue={setValue} destination={destination} />
+
+        <Divider sx={{ my: 4 }} />
+
+        <DayTabs fields={dayFields} register={register} errors={errors} append={appendDay} remove={removeDay} activeDay={activeDay} setActiveDay={setActiveDay} />
+
+        <Divider sx={{ my: 4 }} />
+
+        <Box>
+          <InclusionList fields={inclusionFields} register={register} append={appendInclusion} remove={removeInclusion} />
+          <PaymentConditionList fields={paymentFields} register={register} append={appendPayment} remove={removePayment} />
+          <SupplementList fields={supplementFields} register={register} append={appendSupplement} remove={removeSupplement} />
+          <AccommodationList fields={accommodationFields} register={register} append={appendAccommodation} remove={removeAccommodation} />
+        </Box>
+
+        <Box sx={{ display: "flex", justifyContent: "flex-end", gap: 2, mt: 4, pt: 3, borderTop: "1px solid", borderColor: "divider" }}>
+          <Button variant="outlined" onClick={() => navigate("/dashboard")} disabled={saving}>
+            Annuler
+          </Button>
+          <Button type="submit" variant="contained" size="large" disabled={saving}>
+            {saving ? "Enregistrement…" : "Enregistrer le devis"}
+          </Button>
+        </Box>
       </Paper>
-
-      <DayTabs fields={dayFields} register={register} errors={errors} append={appendDay} remove={removeDay} activeDay={activeDay} setActiveDay={setActiveDay} />
-
-      <InclusionList fields={inclusionFields} register={register} append={appendInclusion} remove={removeInclusion} />
-      <PaymentConditionList fields={paymentFields} register={register} append={appendPayment} remove={removePayment} />
-      <SupplementList fields={supplementFields} register={register} append={appendSupplement} remove={removeSupplement} />
-      <AccommodationList fields={accommodationFields} register={register} append={appendAccommodation} remove={removeAccommodation} />
-
-      <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2, mb: 4 }}>
-        <Button type="submit" variant="contained" size="large" disabled={saving}>
-          {saving ? "Enregistrement…" : "Enregistrer le devis"}
-        </Button>
-      </Box>
 
       <Snackbar open={snackbar.open} autoHideDuration={4000} onClose={() => setSnackbar((prev) => ({ ...prev, open: false }))} anchorOrigin={{ vertical: "bottom", horizontal: "center" }}>
         <Alert severity={snackbar.severity} variant="filled">

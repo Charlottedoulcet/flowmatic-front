@@ -25,7 +25,6 @@ export default function RecentQuotesList({ quotes, userId, onStatusChange, onVie
 
   return (
     <Paper sx={{ borderRadius: 2 }}>
-      {/* En-tête : titre + toggle */}
       <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", px: 3, py: 2, borderBottom: "1px solid", borderColor: "divider" }}>
         <Typography variant="h2" color="text.primary">
           Devis récents

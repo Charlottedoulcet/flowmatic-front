@@ -61,7 +61,6 @@ export default function Navbar() {
         top: 0,
       }}
     >
-      {/* Logo */}
       <Box sx={{ display: "flex", alignItems: "center", gap: 1.25, px: 2.5, pt: 3, pb: 4 }}>
         <Box
           sx={{
@@ -83,7 +82,6 @@ export default function Navbar() {
         <Typography sx={{ fontSize: "16px", fontWeight: 700, color: "common.white", letterSpacing: "-0.3px" }}>Flowmatic</Typography>
       </Box>
 
-      {/* Navigation */}
       <Box sx={{ display: "flex", flexDirection: "column", gap: 0.25, px: 1.5 }}>
         <Typography sx={{ fontSize: "10px", fontWeight: 600, color: "sidebar.sectionLabel", textTransform: "uppercase", letterSpacing: "1px", px: 1.5, pt: 0, pb: 0.5 }}>Devis</Typography>
 
@@ -114,10 +112,8 @@ export default function Navbar() {
         ) : null}
       </Box>
 
-      {/* Spacer — pousse le profil vers le bas */}
       <Box sx={{ flex: 1 }} />
 
-      {/* Profil */}
       <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, px: 2.5, py: 1.5, borderTop: "1px solid", borderColor: "sidebar.divider" }}>
         <Box
           sx={{
@@ -145,7 +141,6 @@ export default function Navbar() {
         </Box>
       </Box>
 
-      {/* Déconnexion — collé au bas */}
       <Box sx={{ px: 1.5, pb: 2.5 }}>
         <Box component="button" onClick={handleLogout} sx={logoutSx}>
           <LogoutIcon sx={{ fontSize: 16 }} />
