@@ -6,7 +6,7 @@ import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import CheckIcon from "@mui/icons-material/Check";
 import SearchIcon from "@mui/icons-material/Search";
-import { pexelsService } from "../services/pexelsService";
+import { pexelsService } from "../../services/pexelsService";
 
 export default function CoverImage({ setValue, destination }) {
   const [query, setQuery] = useState(destination ?? "");

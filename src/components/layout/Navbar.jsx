@@ -6,7 +6,7 @@ import AddIcon from "@mui/icons-material/Add";
 import PeopleIcon from "@mui/icons-material/People";
 import SettingsIcon from "@mui/icons-material/Settings";
 import LogoutIcon from "@mui/icons-material/Logout";
-import { useAuth } from "../context/useAuth";
+import { useAuth } from "../../context/useAuth";
 import { useTheme } from "@mui/material/styles";
 
 export default function Navbar() {
@@ -63,12 +63,21 @@ export default function Navbar() {
     >
       {/* Logo */}
       <Box sx={{ display: "flex", alignItems: "center", gap: 1.25, px: 2.5, pt: 3, pb: 4 }}>
-        <Box sx={{
-          width: 28, height: 28, borderRadius: 1.5,
-          bgcolor: "primary.main", display: "flex",
-          alignItems: "center", justifyContent: "center",
-          fontSize: "14px", fontWeight: 800, color: "common.white", flexShrink: 0,
-        }}>
+        <Box
+          sx={{
+            width: 28,
+            height: 28,
+            borderRadius: 1.5,
+            bgcolor: "primary.main",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            fontSize: "14px",
+            fontWeight: 800,
+            color: "common.white",
+            flexShrink: 0,
+          }}
+        >
           F
         </Box>
         <Typography sx={{ fontSize: "16px", fontWeight: 700, color: "common.white", letterSpacing: "-0.3px" }}>Flowmatic</Typography>
@@ -110,21 +119,29 @@ export default function Navbar() {
 
       {/* Profil */}
       <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, px: 2.5, py: 1.5, borderTop: "1px solid", borderColor: "sidebar.divider" }}>
-        <Box sx={{
-          width: 32, height: 32, borderRadius: "50%",
-          bgcolor: "primary.main", display: "flex",
-          alignItems: "center", justifyContent: "center",
-          fontSize: "12px", fontWeight: 700, color: "common.white", flexShrink: 0,
-        }}>
-          {user?.firstName?.[0]?.toUpperCase()}{user?.lastName?.[0]?.toUpperCase()}
+        <Box
+          sx={{
+            width: 32,
+            height: 32,
+            borderRadius: "50%",
+            bgcolor: "primary.main",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            fontSize: "12px",
+            fontWeight: 700,
+            color: "common.white",
+            flexShrink: 0,
+          }}
+        >
+          {user?.firstName?.[0]?.toUpperCase()}
+          {user?.lastName?.[0]?.toUpperCase()}
         </Box>
         <Box sx={{ minWidth: 0 }}>
           <Typography sx={{ fontSize: "13px", fontWeight: 600, color: "sidebar.textActive", lineHeight: 1.2, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
             {user?.firstName} {user?.lastName?.[0]?.toUpperCase()}.
           </Typography>
-          <Typography sx={{ fontSize: "11px", color: "sidebar.text" }}>
-            {isAdmin ? "Admin" : "Employé"}
-          </Typography>
+          <Typography sx={{ fontSize: "11px", color: "sidebar.text" }}>{isAdmin ? "Admin" : "Employé"}</Typography>
         </Box>
       </Box>
 

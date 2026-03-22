@@ -1,30 +1,40 @@
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
 import Chip from "@mui/material/Chip";
 import IconButton from "@mui/material/IconButton";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import AddIcon from "@mui/icons-material/Add";
 import CloseIcon from "@mui/icons-material/Close";
+import RemoveIcon from "@mui/icons-material/Remove";
 
 export default function InclusionList({ fields, register, append, remove }) {
   return (
     <Box>
-      <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 2 }}>
-        <Typography variant="h6"> Inclus/Non inclus</Typography>
-        <Box sx={{ display: "flex", gap: 1 }}>
-          <Button size="small" startIcon={<AddIcon />} onClick={() => append({ description: "", included: true })}>
-            + Inclus
-          </Button>
-          <Button size="small" variant="outlined" startIcon={<AddIcon />} onClick={() => append({ description: "", included: false })}>
-            + Non inclus
-          </Button>
-        </Box>
+      {/* Boutons d'ajout — cercles colorés alignés à droite */}
+      <Box sx={{ display: "flex", justifyContent: "flex-end", gap: 0.5, mb: 1 }}>
+        <IconButton
+          size="small"
+          title="Ajouter inclus"
+          onClick={() => append({ description: "", included: true })}
+          sx={{ bgcolor: "success.light", color: "success.dark", width: 28, height: 28,
+            "&:hover": { bgcolor: "success.main", color: "common.white" } }}
+        >
+          <AddIcon sx={{ fontSize: 16 }} />
+        </IconButton>
+        <IconButton
+          size="small"
+          title="Ajouter non inclus"
+          onClick={() => append({ description: "", included: false })}
+          sx={{ bgcolor: "error.light", color: "error.dark", width: 28, height: 28,
+            "&:hover": { bgcolor: "error.main", color: "common.white" } }}
+        >
+          <RemoveIcon sx={{ fontSize: 16 }} />
+        </IconButton>
       </Box>
 
       {fields.length === 0 && (
-        <Typography variant="body2" color="text.secondary ">
-          Aucune inclusion. Cliquez sur "+ Inclus" ou "+ Non inclus" pour commencer.
+        <Typography variant="body2" color="text.secondary">
+          Aucune inclusion. Utilisez les boutons + / − pour commencer.
         </Typography>
       )}
 
