@@ -5,7 +5,7 @@ import RoleRoute from "./RoleRoute";
 import LoginPage from "../pages/LoginPage";
 import RegisterPage from "../pages/RegisterPage";
 import DashboardPage from "../pages/DashboardPage";
-// import QuoteCreatePage from '../pages/QuoteCreatePage';   // T-3.4
+import QuoteCreatePage from '../pages/QuoteCreatePage';
 // import QuoteEditPage from '../pages/QuoteEditPage';       // T-3.5
 // import QuotePreviewPage from '../pages/QuotePreviewPage'; // T-4.1
 // import SettingsPage from '../pages/SettingsPage';         // T-6.2
@@ -27,7 +27,7 @@ export const router = createBrowserRouter([
         path: "/quotes/new",
         element: (
           <RoleRoute role="EMPLOYEE">
-            <div>Nouveau devis — T-3.4</div>
+            <QuoteCreatePage />
           </RoleRoute>
         ),
       },

@@ -16,7 +16,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import SwapHorizIcon from "@mui/icons-material/SwapHoriz";
 import VisibilityIcon from "@mui/icons-material/Visibility";
-import StatusChip from "./StatusChip";
+import StatusChip from "../shared/StatusChip";
 
 export default function RecentQuotesList({ quotes, userId, onStatusChange, onView, onEdit, onDelete, onAddNew }) {
   const [filter, setFilter] = useState("mine");
@@ -25,9 +25,10 @@ export default function RecentQuotesList({ quotes, userId, onStatusChange, onVie
 
   return (
     <Paper sx={{ borderRadius: 2 }}>
-      {/* En-tête : titre + toggle */}
       <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", px: 3, py: 2, borderBottom: "1px solid", borderColor: "divider" }}>
-        <Typography variant="h2" color="text.primary">Devis récents</Typography>
+        <Typography variant="h2" color="text.primary">
+          Devis récents
+        </Typography>
         <Box sx={{ display: "flex", gap: 1 }}>
           <Button size="small" variant={filter === "mine" ? "contained" : "outlined"} onClick={() => setFilter("mine")}>
             Mes devis

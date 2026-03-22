@@ -39,6 +39,9 @@ const theme = createTheme({
     h4: { fontSize: "32px", fontWeight: 700, lineHeight: 1.2 },
     body1: { fontSize: "13px" },
     body2: { fontSize: "12px" },
+    formLabel: {
+      fontSize: "12px", fontWeight: 500, display: "block", marginBottom: "4px",
+    },
   },
   shape: {
     borderRadius: 7,
@@ -69,6 +72,36 @@ const theme = createTheme({
       styleOverrides: {
         head: { fontSize: "11px", fontWeight: 600, color: "#9CA3AF", textTransform: "uppercase" },
         body: { fontSize: "13px", color: "#374151" },
+      },
+    },
+    MuiAccordion: {
+      defaultProps: { disableGutters: true, elevation: 0 },
+      styleOverrides: {
+        root: {
+          border: "1px solid rgba(0, 0, 0, 0.12)",
+          borderRadius: "8px !important",
+          overflow: "hidden",
+          marginBottom: "12px",
+          "&:before": { display: "none" },
+        },
+      },
+    },
+    MuiAccordionSummary: {
+      styleOverrides: {
+        root: {
+          backgroundColor: "#F9FAFB",
+          minHeight: "48px",
+          "&.Mui-expanded": { minHeight: "48px" },
+        },
+        content: { margin: "0 !important" },
+      },
+    },
+    MuiAccordionDetails: {
+      styleOverrides: {
+        root: {
+          padding: "16px",
+          borderTop: "1px solid rgba(0, 0, 0, 0.12)",
+        },
       },
     },
   },

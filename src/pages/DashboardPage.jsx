@@ -19,8 +19,8 @@ import AddIcon from "@mui/icons-material/Add";
 
 import { useAuth } from "../context/useAuth";
 import { quoteService } from "../services/quoteService";
-import StatCard from "../components/StatCard";
-import RecentQuotesList from "../components/RecentQuoteList";
+import StatCard from "../components/dashboard/StatCard";
+import RecentQuotesList from "../components/dashboard/RecentQuoteList";
 
 const ALL_STATUSES = [
   { value: "PENDING", label: "En attente" },
