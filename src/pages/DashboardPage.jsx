@@ -13,9 +13,9 @@ import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
-import Snackbar from "@mui/material/Snackbar";
 import Typography from "@mui/material/Typography";
 import AddIcon from "@mui/icons-material/Add";
+import { useSnackbar } from "../hooks/useSnackbar";
 
 import { useAuth } from "../context/useAuth";
 import { quoteService } from "../services/quoteService";
@@ -42,7 +42,7 @@ export default function DashboardPage() {
   const [deleteDialog, setDeleteDialog] = useState({ open: false, quoteId: null });
   const [deleting, setDeleting] = useState(false);
 
-  const [snackbar, setSnackbar] = useState({ open: false, message: "", severity: "success" });
+  const { showSuccess, showError, SnackbarComponent } = useSnackbar();
 
   const pending = quotes.filter((q) => q.status === "PENDING").length;
   const signed = quotes.filter((q) => q.status === "SIGNED").length;
@@ -75,11 +75,11 @@ export default function DashboardPage() {
     try {
       const updated = await quoteService.updateStatus(statusDialog.quoteId, statusDialog.selectedStatus);
       setQuotes((prev) => prev.map((q) => (q.id === updated.id ? updated : q)));
-      setSnackbar({ open: true, message: "Statut mis à jour", severity: "success" });
+      showSuccess("Statut mis à jour");
       closeStatusDialog();
     } catch (err) {
       const msg = err.response?.data?.message ?? "Transition de statut invalide";
-      setSnackbar({ open: true, message: msg, severity: "error" });
+      showError(msg);
       setStatusDialog((prev) => ({ ...prev, saving: false }));
     }
   }
@@ -97,10 +97,10 @@ export default function DashboardPage() {
     try {
       await quoteService.delete(deleteDialog.quoteId);
       setQuotes((prev) => prev.filter((q) => q.id !== deleteDialog.quoteId));
-      setSnackbar({ open: true, message: "Devis supprimé", severity: "success" });
+      showSuccess("Devis supprimé");
       closeDeleteDialog();
     } catch {
-      setSnackbar({ open: true, message: "Impossible de supprimer le devis. Réessayez.", severity: "error" });
+      showError("Impossible de supprimer le devis. Réessayez.");
     } finally {
       setDeleting(false);
     }
@@ -181,11 +181,7 @@ export default function DashboardPage() {
         </DialogActions>
       </Dialog>
 
-      <Snackbar open={snackbar.open} autoHideDuration={3000} onClose={() => setSnackbar((prev) => ({ ...prev, open: false }))} anchorOrigin={{ vertical: "bottom", horizontal: "center" }}>
-        <Alert severity={snackbar.severity} variant="filled" onClose={() => setSnackbar((prev) => ({ ...prev, open: false }))}>
-          {snackbar.message}
-        </Alert>
-      </Snackbar>
+      {SnackbarComponent}
     </Box>
   );
 }

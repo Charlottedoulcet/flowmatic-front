@@ -1,8 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
-import Alert from "@mui/material/Alert";
 import Box from "@mui/material/Box";
-import Snackbar from "@mui/material/Snackbar";
 import Typography from "@mui/material/Typography";
 
 import QuoteFormBody from "../components/quote/QuoteFormBody";
@@ -20,7 +18,7 @@ export default function QuoteCreatePage() {
       navigate(`/quotes/${created.id}/preview`);
     } catch (err) {
       const msg = err.response?.data?.message ?? "Erreur lors de l'enregistrement.";
-      form.setSnackbar({ open: true, message: msg, severity: "error" });
+      form.showError(msg);
       form.setSaving(false);
     }
   }
@@ -38,20 +36,7 @@ export default function QuoteCreatePage() {
         onCancel={() => navigate("/dashboard")}
       />
 
-      <Snackbar
-        open={form.snackbar.open}
-        autoHideDuration={4000}
-        onClose={() => form.setSnackbar((prev) => ({ ...prev, open: false }))}
-        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-      >
-        <Alert
-          severity={form.snackbar.severity}
-          variant="filled"
-          onClose={() => form.setSnackbar((prev) => ({ ...prev, open: false }))}
-        >
-          {form.snackbar.message}
-        </Alert>
-      </Snackbar>
+      {form.SnackbarComponent}
     </Box>
   );
 }

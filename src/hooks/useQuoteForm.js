@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useForm, useFieldArray } from "react-hook-form";
 import { quoteService } from "../services/quoteService";
+import { useSnackbar } from "./useSnackbar";
 
 const DEFAULT_VALUES = {
   title: "",
@@ -25,7 +26,7 @@ export function useQuoteForm() {
   const [extracting, setExtracting] = useState(false);
   const [activeDay, setActiveDay] = useState(0);
   const [saving, setSaving] = useState(false);
-  const [snackbar, setSnackbar] = useState({ open: false, message: "", severity: "success" });
+  const { showSuccess, showError, SnackbarComponent } = useSnackbar();
 
   const { register, control, handleSubmit, reset, watch, setValue, formState: { errors } } =
     useForm({ defaultValues: DEFAULT_VALUES });
@@ -45,10 +46,10 @@ export function useQuoteForm() {
       const extracted = await quoteService.extract(file);
       reset(extracted);
       setActiveDay(0);
-      setSnackbar({ open: true, message: "PDF extrait avec succès ! Vérifiez les données.", severity: "success" });
+      showSuccess("PDF extrait avec succès ! Vérifiez les données.");
     } catch (err) {
       const msg = err.response?.data?.message ?? "Échec de l'extraction. Réessayez.";
-      setSnackbar({ open: true, message: msg, severity: "error" });
+      showError(msg);
     } finally {
       setExtracting(false);
     }
@@ -74,7 +75,8 @@ export function useQuoteForm() {
     setActiveDay,
     saving,
     setSaving,
-    snackbar,
-    setSnackbar,
+    showSuccess,
+    showError,
+    SnackbarComponent,
   };
 }

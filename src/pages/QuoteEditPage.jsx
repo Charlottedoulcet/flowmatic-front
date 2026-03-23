@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
-import Alert from "@mui/material/Alert";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import CircularProgress from "@mui/material/CircularProgress";
@@ -44,7 +43,7 @@ export default function QuoteEditPage() {
       navigate(`/quotes/${updated.id}/preview`);
     } catch (err) {
       const msg = err.response?.data?.message ?? "Erreur lors de l'enregistrement.";
-      form.setSnackbar({ open: true, message: msg, severity: "error" });
+      form.showError(msg);
       form.setSaving(false);
     }
   }
@@ -56,7 +55,7 @@ export default function QuoteEditPage() {
       navigate("/dashboard");
     } catch (err) {
       const msg = err.response?.data?.message ?? "Erreur lors de la suppression.";
-      form.setSnackbar({ open: true, message: msg, severity: "error" });
+      form.showError(msg);
       setDeleting(false);
       setDeleteDialog(false);
     }
@@ -111,20 +110,7 @@ export default function QuoteEditPage() {
         </DialogActions>
       </Dialog>
 
-      <Snackbar
-        open={form.snackbar.open}
-        autoHideDuration={4000}
-        onClose={() => form.setSnackbar((prev) => ({ ...prev, open: false }))}
-        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-      >
-        <Alert
-          severity={form.snackbar.severity}
-          variant="filled"
-          onClose={() => form.setSnackbar((prev) => ({ ...prev, open: false }))}
-        >
-          {form.snackbar.message}
-        </Alert>
-      </Snackbar>
+      {form.SnackbarComponent}
     </Box>
   );
 }
