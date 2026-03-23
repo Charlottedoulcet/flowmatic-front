@@ -150,8 +150,9 @@ export default function CoverImage({ setValue, destination, currentImageUrl }) {
                     backgroundImage: `url(${photo.thumb})`,
                     backgroundSize: "cover",
                     backgroundPosition: "center",
-                    border: "3px solid",
-                    borderColor: selectedId === photo.id ? "primary.main" : "transparent",
+                    outline: "3px solid",
+                    outlineColor: selectedId === photo.id ? "primary.main" : "transparent",
+                    outlineOffset: "-3px",
                   }}
                 >
                   {selectedId === photo.id && (
