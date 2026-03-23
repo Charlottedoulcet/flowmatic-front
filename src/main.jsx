@@ -4,7 +4,7 @@ import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { AuthProvider } from "./context/AuthContext.jsx";
 import theme from "./styles/theme";
-import "./index.css";
+import "./styles/index.css";
 import App from "./App.jsx";
 
 createRoot(document.getElementById("root")).render(

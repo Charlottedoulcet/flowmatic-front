@@ -41,8 +41,6 @@ export default function CoverImage({ setValue, destination, currentImageUrl }) {
   function handleSelect(photo) {
     setSelectedId(photo.id);
     setValue("coverImageUrl", photo.url);
-    setShowSearch(false);
-    setPhotos([]);
   }
 
   function handleCancelChange() {
@@ -57,27 +55,49 @@ export default function CoverImage({ setValue, destination, currentImageUrl }) {
         Image de couverture
       </Typography>
 
-      {/* Preview de l'image actuelle */}
       {currentImageUrl && !showSearch && (
-        <Box sx={{ mb: 2 }}>
+        <Box sx={{ position: "relative", height: 240, borderRadius: 2, overflow: "hidden", mb: 2 }}>
           <Box
             sx={{
               width: "100%",
-              aspectRatio: "16/9",
+              height: "100%",
               backgroundImage: `url(${currentImageUrl})`,
               backgroundSize: "cover",
               backgroundPosition: "center",
-              borderRadius: 2,
-              mb: 1,
             }}
           />
-          <Button size="small" variant="outlined" onClick={() => setShowSearch(true)}>
+
+          <Box
+            sx={(theme) => ({
+              position: "absolute",
+              bottom: 0,
+              left: 0,
+              right: 0,
+              height: "55%",
+              background: `linear-gradient(to top, ${alpha(theme.palette.common.black, 0.55)}, transparent)`,
+              borderRadius: "0 0 8px 8px",
+            })}
+          />
+
+          <Button
+            size="small"
+            onClick={() => setShowSearch(true)}
+            sx={(theme) => ({
+              position: "absolute",
+              bottom: 12,
+              right: 12,
+              color: "common.white",
+              bgcolor: alpha(theme.palette.common.white, 0.15),
+              backdropFilter: "blur(8px)",
+              border: `1px solid ${alpha(theme.palette.common.white, 0.35)}`,
+              "&:hover": { bgcolor: alpha(theme.palette.common.white, 0.28) },
+            })}
+          >
             Changer l'image
           </Button>
         </Box>
       )}
 
-      {/* Zone de recherche — visible si pas d'image ou si l'utilisateur veut changer */}
       {showSearch && (
         <>
           <Box
@@ -90,23 +110,9 @@ export default function CoverImage({ setValue, destination, currentImageUrl }) {
             }}
           >
             <Box sx={{ display: "flex", gap: 1 }}>
-              <TextField
-                label="Destination ou mot-clé"
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                onKeyDown={(e) => e.key === "Enter" && handleSearch()}
-                size="small"
-                fullWidth
-                placeholder="ex: Guatemala jungle"
-              />
+              <TextField label="Destination ou mot-clé" value={query} onChange={(e) => setQuery(e.target.value)} onKeyDown={(e) => e.key === "Enter" && handleSearch()} size="small" fullWidth placeholder="ex: Guatemala jungle" />
               <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 0.5 }}>
-                <Button
-                  variant="contained"
-                  onClick={handleSearch}
-                  disabled={searching || !query.trim()}
-                  startIcon={searching ? <CircularProgress size={16} color="inherit" /> : <SearchIcon />}
-                  sx={{ whiteSpace: "nowrap" }}
-                >
+                <Button variant="contained" onClick={handleSearch} disabled={searching || !query.trim()} startIcon={searching ? <CircularProgress size={16} color="inherit" /> : <SearchIcon />} sx={{ whiteSpace: "nowrap" }}>
                   Chercher image
                 </Button>
                 <Typography variant="body2" color="text.disabled">
@@ -188,7 +194,6 @@ export default function CoverImage({ setValue, destination, currentImageUrl }) {
             </Box>
           )}
 
-          {/* Bouton annuler — visible seulement si une image existait déjà */}
           {currentImageUrl && (
             <Button size="small" sx={{ mt: 1 }} onClick={handleCancelChange}>
               Annuler

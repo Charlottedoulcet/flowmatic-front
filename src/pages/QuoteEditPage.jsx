@@ -192,7 +192,7 @@ export default function QuoteEditPage() {
       </Paper>
 
       <Dialog open={deleteDialog} onClose={() => setDeleteDialog(false)} maxWidth="xs" fullWidth>
-        <DialogTitle>Supprimer ce devis ?</DialogTitle>
+        <DialogTitle sx={{ color: "text.primary" }}>Supprimer ce devis ?</DialogTitle>
         <DialogContent>
           <Typography>Cette action est irréversible. Toutes les données du devis (jours, inclusions, hébergements) seront définitivement supprimées.</Typography>
         </DialogContent>
