@@ -28,7 +28,7 @@ export default function DaySection({ index, register, errors, onRemove }) {
         </Button>
       </Box>
 
-      <Box sx={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 2 }}>
+      <Box sx={{ display: "grid", gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr" }, gap: 2 }}>
         <Box>
           <FormLabel>Titre *</FormLabel>
           <TextField
