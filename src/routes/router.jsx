@@ -5,8 +5,8 @@ import RoleRoute from "./RoleRoute";
 import LoginPage from "../pages/LoginPage";
 import RegisterPage from "../pages/RegisterPage";
 import DashboardPage from "../pages/DashboardPage";
-import QuoteCreatePage from '../pages/QuoteCreatePage';
-// import QuoteEditPage from '../pages/QuoteEditPage';       // T-3.5
+import QuoteCreatePage from "../pages/QuoteCreatePage";
+import QuoteEditPage from "../pages/QuoteEditPage";
 // import QuotePreviewPage from '../pages/QuotePreviewPage'; // T-4.1
 // import SettingsPage from '../pages/SettingsPage';         // T-6.2
 // import EmployeesPage from '../pages/EmployeesPage';       // T-5.2
@@ -35,7 +35,7 @@ export const router = createBrowserRouter([
         path: "/quotes/:id/edit",
         element: (
           <RoleRoute role="EMPLOYEE">
-            <div>Modifier devis — T-3.5</div>
+            <QuoteEditPage />
           </RoleRoute>
         ),
       },
