@@ -21,14 +21,7 @@ import { useAuth } from "../context/useAuth";
 import { quoteService } from "../services/quoteService";
 import StatCard from "../components/dashboard/StatCard";
 import RecentQuotesList from "../components/dashboard/RecentQuoteList";
-
-const ALL_STATUSES = [
-  { value: "PENDING", label: "En attente" },
-  { value: "SENT", label: "Envoyé" },
-  { value: "SIGNED", label: "Signé" },
-  { value: "PAID", label: "Payé" },
-  { value: "CANCELLED", label: "Annulé" },
-];
+import { ALL_STATUSES } from "../utils/statusConfig";
 
 export default function DashboardPage() {
   const navigate = useNavigate();
