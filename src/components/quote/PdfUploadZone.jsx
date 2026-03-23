@@ -85,9 +85,13 @@ export default function PdfUploadZone({ onExtract, loading }) {
       )}
       <Box
         onClick={() => !loading && !selectedFile && inputRef.current.click()}
+        onKeyDown={(e) => { if (!loading && !selectedFile && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); inputRef.current.click(); } }}
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
+        role="button"
+        tabIndex={loading || selectedFile ? -1 : 0}
+        aria-label="Choisir un fichier PDF à analyser"
         sx={{
           border: "2px dashed",
           borderColor: getBorderColor(),
