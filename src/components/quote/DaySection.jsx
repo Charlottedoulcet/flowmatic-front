@@ -3,14 +3,7 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import DeleteIcon from "@mui/icons-material/Delete";
-
-function Lbl({ children }) {
-  return (
-    <Typography variant="formLabel" component="label">
-      {children}
-    </Typography>
-  );
-}
+import FormLabel from "../shared/FormLabel";
 
 export default function DaySection({ index, register, errors, onRemove }) {
   const dayErrors = errors.days?.[index] ?? {};
@@ -35,9 +28,9 @@ export default function DaySection({ index, register, errors, onRemove }) {
         </Button>
       </Box>
 
-      <Box sx={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 2 }}>
+      <Box sx={{ display: "grid", gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr" }, gap: 2 }}>
         <Box>
-          <Lbl>Titre *</Lbl>
+          <FormLabel>Titre *</FormLabel>
           <TextField
             placeholder="ex: Bienvenue au Guatemala !"
             size="small"
@@ -47,7 +40,7 @@ export default function DaySection({ index, register, errors, onRemove }) {
           />
         </Box>
         <Box>
-          <Lbl>Date</Lbl>
+          <FormLabel>Date</FormLabel>
           <TextField
             placeholder="ex: samedi 11 avril"
             size="small"
@@ -56,7 +49,7 @@ export default function DaySection({ index, register, errors, onRemove }) {
           />
         </Box>
         <Box>
-          <Lbl>Résumé (tableau itinéraire)</Lbl>
+          <FormLabel>Résumé (tableau itinéraire)</FormLabel>
           <TextField
             placeholder="ex: Arrivée, transfert Antigua"
             size="small"
@@ -65,7 +58,7 @@ export default function DaySection({ index, register, errors, onRemove }) {
           />
         </Box>
         <Box>
-          <Lbl>Nuit à</Lbl>
+          <FormLabel>Nuit à</FormLabel>
           <TextField
             placeholder="ex: Antigua"
             size="small"
@@ -74,7 +67,7 @@ export default function DaySection({ index, register, errors, onRemove }) {
           />
         </Box>
         <Box sx={{ gridColumn: "1 / -1" }}>
-          <Lbl>Description narrative</Lbl>
+          <FormLabel>Description narrative</FormLabel>
           <TextField
             placeholder="Accueil à l'aéroport, route vers Antigua..."
             size="small"
@@ -85,7 +78,7 @@ export default function DaySection({ index, register, errors, onRemove }) {
           />
         </Box>
         <Box>
-          <Lbl>Hébergement (nom)</Lbl>
+          <FormLabel>Hébergement (nom)</FormLabel>
           <TextField
             placeholder="ex: Mesón de María 3*"
             size="small"
@@ -94,7 +87,7 @@ export default function DaySection({ index, register, errors, onRemove }) {
           />
         </Box>
         <Box>
-          <Lbl>Lieu hébergement</Lbl>
+          <FormLabel>Lieu hébergement</FormLabel>
           <TextField
             placeholder="ex: Antigua"
             size="small"
@@ -103,7 +96,7 @@ export default function DaySection({ index, register, errors, onRemove }) {
           />
         </Box>
         <Box>
-          <Lbl>Type de chambre</Lbl>
+          <FormLabel>Type de chambre</FormLabel>
           <TextField
             placeholder="ex: 1 double + 1 simple"
             size="small"
@@ -112,7 +105,7 @@ export default function DaySection({ index, register, errors, onRemove }) {
           />
         </Box>
         <Box>
-          <Lbl>Durée transport</Lbl>
+          <FormLabel>Durée transport</FormLabel>
           <TextField
             placeholder="ex: 1h15"
             size="small"
@@ -121,7 +114,7 @@ export default function DaySection({ index, register, errors, onRemove }) {
           />
         </Box>
         <Box>
-          <Lbl>Repas</Lbl>
+          <FormLabel>Repas</FormLabel>
           <TextField
             placeholder="ex: Dîner"
             size="small"
@@ -130,7 +123,7 @@ export default function DaySection({ index, register, errors, onRemove }) {
           />
         </Box>
         <Box sx={{ gridColumn: "1 / -1" }}>
-          <Lbl>Inclus dans la journée</Lbl>
+          <FormLabel>Inclus dans la journée</FormLabel>
           <TextField
             placeholder="ex: Transfert aéroport, accueil, carte SIM"
             size="small"

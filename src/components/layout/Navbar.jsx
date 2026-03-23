@@ -1,5 +1,6 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
+import Drawer from "@mui/material/Drawer";
 import Typography from "@mui/material/Typography";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import AddIcon from "@mui/icons-material/Add";
@@ -9,7 +10,9 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import { useAuth } from "../../context/useAuth";
 import { useTheme } from "@mui/material/styles";
 
-export default function Navbar() {
+const DRAWER_WIDTH = 230;
+
+export default function Navbar({ mobileOpen, onMobileClose }) {
   const { user, logout, hasRole } = useAuth();
   const navigate = useNavigate();
   const theme = useTheme();
@@ -47,20 +50,8 @@ export default function Navbar() {
     "&:hover": { bgcolor: sidebar.logoutHoverBg, color: sidebar.logoutHoverText },
   };
 
-  return (
-    <Box
-      component="aside"
-      sx={{
-        width: 230,
-        height: "100vh",
-        bgcolor: "sidebar.bg",
-        display: "flex",
-        flexDirection: "column",
-        flexShrink: 0,
-        position: "sticky",
-        top: 0,
-      }}
-    >
+  const sidebarContent = (
+    <Box sx={{ display: "flex", flexDirection: "column", height: "100%", bgcolor: "sidebar.bg" }}>
       <Box sx={{ display: "flex", alignItems: "center", gap: 1.25, px: 2.5, pt: 3, pb: 4 }}>
         <Box
           sx={{
@@ -95,21 +86,19 @@ export default function Navbar() {
           Nouveau devis
         </Box>
 
-        {isAdmin ? (
+        {isAdmin && (
           <>
             <Typography sx={{ fontSize: "10px", fontWeight: 600, color: "sidebar.sectionLabel", textTransform: "uppercase", letterSpacing: "1px", px: 1.5, pt: 2, pb: 0.5 }}>Administration</Typography>
-
             <Box component={NavLink} to="/employees" sx={navLinkSx}>
               <PeopleIcon sx={{ fontSize: 16 }} />
               Employés
             </Box>
-
             <Box component={NavLink} to="/settings" sx={navLinkSx}>
               <SettingsIcon sx={{ fontSize: 16 }} />
               Configuration
             </Box>
           </>
-        ) : null}
+        )}
       </Box>
 
       <Box sx={{ flex: 1 }} />
@@ -148,5 +137,37 @@ export default function Navbar() {
         </Box>
       </Box>
     </Box>
+  );
+
+  return (
+    <>
+      <Drawer
+        variant="temporary"
+        open={mobileOpen}
+        onClose={onMobileClose}
+        ModalProps={{ keepMounted: true }}
+        sx={{
+          display: { xs: "block", md: "none" },
+          "& .MuiDrawer-paper": { width: DRAWER_WIDTH, boxSizing: "border-box" },
+        }}
+      >
+        {sidebarContent}
+      </Drawer>
+
+      <Box
+        component="aside"
+        sx={{
+          width: DRAWER_WIDTH,
+          flexShrink: 0,
+          display: { xs: "none", md: "flex" },
+          flexDirection: "column",
+          height: "100vh",
+          position: "sticky",
+          top: 0,
+        }}
+      >
+        {sidebarContent}
+      </Box>
+    </>
   );
 }

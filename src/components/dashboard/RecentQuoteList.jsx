@@ -51,6 +51,12 @@ export default function RecentQuotesList({ quotes, userId, onStatusChange, onVie
             Créer un devis
           </Button>
         </Box>
+      ) : displayedQuotes.length === 0 ? (
+        <Box sx={{ textAlign: "center", py: 6, m: 2 }}>
+          <Typography variant="body1" color="text.secondary">
+            Aucun devis ne correspond à ce filtre.
+          </Typography>
+        </Box>
       ) : (
         <TableContainer sx={{ borderRadius: 2 }}>
           <Table>

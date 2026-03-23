@@ -2,14 +2,7 @@ import { Controller } from "react-hook-form";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
-
-function Lbl({ children }) {
-  return (
-    <Typography variant="formLabel" component="label">
-      {children}
-    </Typography>
-  );
-}
+import FormLabel from "../shared/FormLabel";
 
 export default function GeneralInfo({ register, control, errors }) {
   return (
@@ -18,9 +11,9 @@ export default function GeneralInfo({ register, control, errors }) {
         Informations générales
       </Typography>
 
-      <Box sx={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 2 }}>
+      <Box sx={{ display: "grid", gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr" }, gap: 2 }}>
         <Box>
-          <Lbl>Titre du voyage *</Lbl>
+          <FormLabel>Titre du voyage *</FormLabel>
           <TextField
             placeholder="ex: Immersion au Guatemala en famille"
             size="small"
@@ -31,7 +24,7 @@ export default function GeneralInfo({ register, control, errors }) {
           />
         </Box>
         <Box>
-          <Lbl>Nom du client *</Lbl>
+          <FormLabel>Nom du client *</FormLabel>
           <TextField
             placeholder="ex: Anna Saulnier"
             size="small"
@@ -42,7 +35,7 @@ export default function GeneralInfo({ register, control, errors }) {
           />
         </Box>
         <Box>
-          <Lbl>Destination *</Lbl>
+          <FormLabel>Destination *</FormLabel>
           <TextField
             placeholder="ex: Guatemala & Belize"
             size="small"
@@ -53,7 +46,7 @@ export default function GeneralInfo({ register, control, errors }) {
           />
         </Box>
         <Box>
-          <Lbl>Nombre de participants *</Lbl>
+          <FormLabel>Nombre de participants *</FormLabel>
           <TextField
             type="number"
             placeholder="3"
@@ -67,7 +60,7 @@ export default function GeneralInfo({ register, control, errors }) {
         </Box>
 
         <Box>
-          <Lbl>Date de début *</Lbl>
+          <FormLabel>Date de début *</FormLabel>
           <Controller
             name="startDate"
             control={control}
@@ -86,7 +79,7 @@ export default function GeneralInfo({ register, control, errors }) {
           />
         </Box>
         <Box>
-          <Lbl>Date de fin *</Lbl>
+          <FormLabel>Date de fin *</FormLabel>
           <Controller
             name="endDate"
             control={control}
@@ -106,7 +99,7 @@ export default function GeneralInfo({ register, control, errors }) {
         </Box>
 
         <Box>
-          <Lbl>Prix par personne (€) *</Lbl>
+          <FormLabel>Prix par personne (€) *</FormLabel>
           <TextField
             type="number"
             placeholder="3990"
@@ -122,7 +115,7 @@ export default function GeneralInfo({ register, control, errors }) {
           />
         </Box>
         <Box>
-          <Lbl>Devise</Lbl>
+          <FormLabel>Devise</FormLabel>
           <TextField
             placeholder="EUR"
             size="small"
@@ -131,7 +124,7 @@ export default function GeneralInfo({ register, control, errors }) {
           />
         </Box>
         <Box sx={{ gridColumn: "1 / -1" }}>
-          <Lbl>Email du client</Lbl>
+          <FormLabel>Email du client</FormLabel>
           <TextField
             type="email"
             placeholder="ex: anna@email.com"
@@ -141,7 +134,7 @@ export default function GeneralInfo({ register, control, errors }) {
           />
         </Box>
         <Box sx={{ gridColumn: "1 / -1" }}>
-          <Lbl>Souhaits de voyage</Lbl>
+          <FormLabel>Souhaits de voyage</FormLabel>
           <TextField
             placeholder="Le Guatemala authentique, entre culture maya et nature luxuriante..."
             size="small"

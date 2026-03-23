@@ -13,22 +13,15 @@ import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
-import Snackbar from "@mui/material/Snackbar";
 import Typography from "@mui/material/Typography";
 import AddIcon from "@mui/icons-material/Add";
+import { useSnackbar } from "../hooks/useSnackbar";
 
 import { useAuth } from "../context/useAuth";
 import { quoteService } from "../services/quoteService";
 import StatCard from "../components/dashboard/StatCard";
 import RecentQuotesList from "../components/dashboard/RecentQuoteList";
-
-const ALL_STATUSES = [
-  { value: "PENDING", label: "En attente" },
-  { value: "SENT", label: "Envoyé" },
-  { value: "SIGNED", label: "Signé" },
-  { value: "PAID", label: "Payé" },
-  { value: "CANCELLED", label: "Annulé" },
-];
+import { ALL_STATUSES } from "../utils/statusConfig";
 
 export default function DashboardPage() {
   const navigate = useNavigate();
@@ -46,7 +39,10 @@ export default function DashboardPage() {
     saving: false,
   });
 
-  const [snackbar, setSnackbar] = useState({ open: false, message: "", severity: "success" });
+  const [deleteDialog, setDeleteDialog] = useState({ open: false, quoteId: null });
+  const [deleting, setDeleting] = useState(false);
+
+  const { showSuccess, showError, SnackbarComponent } = useSnackbar();
 
   const pending = quotes.filter((q) => q.status === "PENDING").length;
   const signed = quotes.filter((q) => q.status === "SIGNED").length;
@@ -79,12 +75,34 @@ export default function DashboardPage() {
     try {
       const updated = await quoteService.updateStatus(statusDialog.quoteId, statusDialog.selectedStatus);
       setQuotes((prev) => prev.map((q) => (q.id === updated.id ? updated : q)));
-      setSnackbar({ open: true, message: "Statut mis à jour", severity: "success" });
+      showSuccess("Statut mis à jour");
       closeStatusDialog();
     } catch (err) {
       const msg = err.response?.data?.message ?? "Transition de statut invalide";
-      setSnackbar({ open: true, message: msg, severity: "error" });
+      showError(msg);
       setStatusDialog((prev) => ({ ...prev, saving: false }));
+    }
+  }
+
+  function openDeleteDialog(quoteId) {
+    setDeleteDialog({ open: true, quoteId });
+  }
+
+  function closeDeleteDialog() {
+    setDeleteDialog({ open: false, quoteId: null });
+  }
+
+  async function handleDeleteConfirm() {
+    setDeleting(true);
+    try {
+      await quoteService.delete(deleteDialog.quoteId);
+      setQuotes((prev) => prev.filter((q) => q.id !== deleteDialog.quoteId));
+      showSuccess("Devis supprimé");
+      closeDeleteDialog();
+    } catch {
+      showError("Impossible de supprimer le devis. Réessayez.");
+    } finally {
+      setDeleting(false);
     }
   }
 
@@ -113,14 +131,22 @@ export default function DashboardPage() {
         </Button>
       </Box>
 
-      <Box sx={{ display: "flex", gap: 2, mb: 3, mt: 1 }}>
+      <Box sx={{ display: "flex", gap: 2, mb: 3, mt: 1, flexWrap: "wrap" }}>
         <StatCard title="Total devis" value={quotes.length} />
         <StatCard title="En attente" value={pending} color="warning.main" />
         <StatCard title="Signés" value={signed} color="success.main" />
         <StatCard title="CA total" value={`${ca.toLocaleString("fr-FR")} €`} />
       </Box>
 
-      <RecentQuotesList quotes={quotes} userId={user?.id} onStatusChange={openStatusDialog} onView={(id) => navigate(`/quotes/${id}/preview`)} onEdit={(id) => navigate(`/quotes/${id}/edit`)} onDelete={(id) => console.log("TODO supprimer", id)} onAddNew={() => navigate("/quotes/new")} />
+      <RecentQuotesList
+        quotes={quotes}
+        userId={user?.id}
+        onStatusChange={openStatusDialog}
+        onView={(id) => navigate(`/quotes/${id}/preview`)}
+        onEdit={(id) => navigate(`/quotes/${id}/edit`)}
+        onDelete={openDeleteDialog}
+        onAddNew={() => navigate("/quotes/new")}
+      />
 
       <Dialog open={statusDialog.open} onClose={closeStatusDialog} maxWidth="xs" fullWidth>
         <DialogTitle sx={{ color: "text.primary" }}>Changer le statut</DialogTitle>
@@ -146,11 +172,24 @@ export default function DashboardPage() {
         </DialogActions>
       </Dialog>
 
-      <Snackbar open={snackbar.open} autoHideDuration={3000} onClose={() => setSnackbar((prev) => ({ ...prev, open: false }))} anchorOrigin={{ vertical: "bottom", horizontal: "center" }}>
-        <Alert severity={snackbar.severity} variant="filled">
-          {snackbar.message}
-        </Alert>
-      </Snackbar>
+      <Dialog open={deleteDialog.open} onClose={closeDeleteDialog} maxWidth="xs" fullWidth>
+        <DialogTitle sx={{ color: "text.primary" }}>Supprimer le devis</DialogTitle>
+        <DialogContent>
+          <Typography color="text.secondary">
+            Cette action est irréversible. Le devis sera définitivement supprimé.
+          </Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={closeDeleteDialog} disabled={deleting}>
+            Annuler
+          </Button>
+          <Button variant="contained" color="error" onClick={handleDeleteConfirm} disabled={deleting}>
+            {deleting ? "Suppression..." : "Supprimer"}
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      {SnackbarComponent}
     </Box>
   );
 }

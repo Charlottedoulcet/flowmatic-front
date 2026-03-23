@@ -17,7 +17,9 @@ const theme = createTheme({
     text: {
       primary: "#111827",
       secondary: "#6B7280",
+      disabled: "#9CA3AF",
     },
+    divider: "rgba(0, 0, 0, 0.12)",
     sidebar: {
       bg: "#1E1E2E",
       text: "rgba(255, 255, 255, 0.45)",
@@ -65,43 +67,43 @@ const theme = createTheme({
     },
     MuiTableHead: {
       styleOverrides: {
-        root: { background: "#FAFAFA" },
+        root: ({ theme }) => ({ background: theme.palette.background.default }),
       },
     },
     MuiTableCell: {
       styleOverrides: {
-        head: { fontSize: "11px", fontWeight: 600, color: "#9CA3AF", textTransform: "uppercase" },
-        body: { fontSize: "13px", color: "#374151" },
+        head: ({ theme }) => ({ fontSize: "11px", fontWeight: 600, color: theme.palette.text.disabled, textTransform: "uppercase" }),
+        body: ({ theme }) => ({ fontSize: "13px", color: theme.palette.text.primary }),
       },
     },
     MuiAccordion: {
       defaultProps: { disableGutters: true, elevation: 0 },
       styleOverrides: {
-        root: {
-          border: "1px solid rgba(0, 0, 0, 0.12)",
+        root: ({ theme }) => ({
+          border: `1px solid ${theme.palette.divider}`,
           borderRadius: "8px !important",
           overflow: "hidden",
           marginBottom: "12px",
           "&:before": { display: "none" },
-        },
+        }),
       },
     },
     MuiAccordionSummary: {
       styleOverrides: {
-        root: {
-          backgroundColor: "#F9FAFB",
+        root: ({ theme }) => ({
+          backgroundColor: theme.palette.background.default,
           minHeight: "48px",
           "&.Mui-expanded": { minHeight: "48px" },
-        },
+        }),
         content: { margin: "0 !important" },
       },
     },
     MuiAccordionDetails: {
       styleOverrides: {
-        root: {
+        root: ({ theme }) => ({
           padding: "16px",
-          borderTop: "1px solid rgba(0, 0, 0, 0.12)",
-        },
+          borderTop: `1px solid ${theme.palette.divider}`,
+        }),
       },
     },
   },

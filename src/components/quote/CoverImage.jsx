@@ -58,6 +58,8 @@ export default function CoverImage({ setValue, destination, currentImageUrl }) {
       {currentImageUrl && !showSearch && (
         <Box sx={{ position: "relative", height: 240, borderRadius: 2, overflow: "hidden", mb: 2 }}>
           <Box
+            role="img"
+            aria-label={`Image de couverture : ${destination ?? "voyage"}`}
             sx={{
               width: "100%",
               height: "100%",
@@ -134,6 +136,11 @@ export default function CoverImage({ setValue, destination, currentImageUrl }) {
                 <Box
                   key={photo.id}
                   onClick={() => handleSelect(photo)}
+                  onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); handleSelect(photo); } }}
+                  role="button"
+                  tabIndex={0}
+                  aria-label={`Sélectionner la photo de ${photo.photographer}`}
+                  aria-pressed={selectedId === photo.id}
                   sx={{
                     position: "relative",
                     cursor: "pointer",
@@ -143,8 +150,9 @@ export default function CoverImage({ setValue, destination, currentImageUrl }) {
                     backgroundImage: `url(${photo.thumb})`,
                     backgroundSize: "cover",
                     backgroundPosition: "center",
-                    border: "3px solid",
-                    borderColor: selectedId === photo.id ? "primary.main" : "transparent",
+                    outline: "3px solid",
+                    outlineColor: selectedId === photo.id ? "primary.main" : "transparent",
+                    outlineOffset: "-3px",
                   }}
                 >
                   {selectedId === photo.id && (
