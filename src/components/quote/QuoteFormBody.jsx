@@ -29,7 +29,12 @@ export default function QuoteFormBody({ register, control, errors, setValue, des
 
         <Divider sx={{ my: 4 }} />
 
-        <DayTabs fields={dayFields} register={register} errors={errors} append={appendDay} remove={removeDay} activeDay={activeDay} setActiveDay={setActiveDay} />
+        <DayTabs
+          form={{ register, errors }}
+          fieldArray={{ fields: dayFields, append: appendDay, remove: removeDay }}
+          activeDay={activeDay}
+          setActiveDay={setActiveDay}
+        />
 
         <Divider sx={{ my: 4 }} />
 

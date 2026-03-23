@@ -7,7 +7,10 @@ import AddIcon from "@mui/icons-material/Add";
 
 import DaySection from "./DaySection";
 
-export default function DayTabs({ fields, register, errors, append, remove, activeDay, setActiveDay }) {
+export default function DayTabs({ form, fieldArray, activeDay, setActiveDay }) {
+  const { register, errors } = form;
+  const { fields, append, remove } = fieldArray;
+
   function handleAddDay() {
     append({
       dayNumber: fields.length + 1,

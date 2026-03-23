@@ -131,14 +131,22 @@ export default function DashboardPage() {
         </Button>
       </Box>
 
-      <Box sx={{ display: "flex", gap: 2, mb: 3, mt: 1 }}>
+      <Box sx={{ display: "flex", gap: 2, mb: 3, mt: 1, flexWrap: "wrap" }}>
         <StatCard title="Total devis" value={quotes.length} />
         <StatCard title="En attente" value={pending} color="warning.main" />
         <StatCard title="Signés" value={signed} color="success.main" />
         <StatCard title="CA total" value={`${ca.toLocaleString("fr-FR")} €`} />
       </Box>
 
-      <RecentQuotesList quotes={quotes} userId={user?.id} onStatusChange={openStatusDialog} onView={(id) => navigate(`/quotes/${id}/preview`)} onEdit={(id) => navigate(`/quotes/${id}/edit`)} onDelete={openDeleteDialog} onAddNew={() => navigate("/quotes/new")} />
+      <RecentQuotesList
+        quotes={quotes}
+        userId={user?.id}
+        onStatusChange={openStatusDialog}
+        onView={(id) => navigate(`/quotes/${id}/preview`)}
+        onEdit={(id) => navigate(`/quotes/${id}/edit`)}
+        onDelete={openDeleteDialog}
+        onAddNew={() => navigate("/quotes/new")}
+      />
 
       <Dialog open={statusDialog.open} onClose={closeStatusDialog} maxWidth="xs" fullWidth>
         <DialogTitle sx={{ color: "text.primary" }}>Changer le statut</DialogTitle>
