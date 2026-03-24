@@ -9,10 +9,32 @@ body {
 @media print {
   @page {
     size: A4;
-    margin: 0;
+    margin: 1.5cm 1cm;
+
+    /* Supprimer l'URL, la date et le titre générés par le navigateur */
+    @top-left { content: none; }
+    @top-center { content: none; }
+    @top-right { content: none; }
+    @bottom-left { content: none; }
+    @bottom-right { content: none; }
+    /* Garder uniquement le numéro de page au centre */
+    @bottom-center {
+      content: counter(page);
+      font-size: 10px;
+      color: #999;
+    }
   }
 
   body {
     background-color: white !important;
+  }
+
+  tr {
+    break-inside: avoid;
+  }
+
+  /* Les en-têtes de tableau se répètent sur chaque page */
+  thead {
+    display: table-header-group;
   }
 }

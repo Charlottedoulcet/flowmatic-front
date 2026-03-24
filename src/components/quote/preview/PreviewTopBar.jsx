@@ -2,6 +2,7 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import EditIcon from "@mui/icons-material/Edit";
+import PrintIcon from "@mui/icons-material/Print";
 import StatusChip from "../../shared/StatusChip";
 
 export default function PreviewTopbar({ status, showEdit, onBack, onEdit }) {
@@ -17,13 +18,14 @@ export default function PreviewTopbar({ status, showEdit, onBack, onEdit }) {
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
+        "@media print": { display: "none" },
       }}
     >
       <Button startIcon={<ArrowBackIcon />} onClick={onBack} sx={{ color: "text.secondary" }}>
         Retour au tableau de bord
       </Button>
       <Box sx={{ display: "flex", gap: 1.5, alignItems: "center" }}>
-        <Button size="small" variant="outlined" startIcon={<DownloadIcon />} onClick={() => window.print()}>
+        <Button size="small" variant="outlined" startIcon={<PrintIcon />} onClick={() => window.print()}>
           Télécharger PDF
         </Button>
         {showEdit && (
