@@ -7,9 +7,7 @@ import RegisterPage from "../pages/RegisterPage";
 import DashboardPage from "../pages/DashboardPage";
 import QuoteCreatePage from "../pages/QuoteCreatePage";
 import QuoteEditPage from "../pages/QuoteEditPage";
-// import QuotePreviewPage from '../pages/QuotePreviewPage'; // T-4.1
-// import SettingsPage from '../pages/SettingsPage';         // T-6.2
-// import EmployeesPage from '../pages/EmployeesPage';       // T-5.2
+import QuotePreviewPage from "../pages/QuotePreviewPage";
 
 export const router = createBrowserRouter([
   { path: "/login", element: <LoginPage /> },
@@ -39,7 +37,7 @@ export const router = createBrowserRouter([
           </RoleRoute>
         ),
       },
-      { path: "/quotes/:id/preview", element: <div>Aperçu devis — T-4.1</div> },
+      { path: "/quotes/:id/preview", element: <QuotePreviewPage /> },
       {
         path: "/settings",
         element: (
