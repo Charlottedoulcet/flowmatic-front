@@ -8,7 +8,7 @@ export default function PreviewDayProgram({ days }) {
   const sortedDays = [...days].sort((a, b) => a.dayNumber - b.dayNumber);
 
   return (
-    <Box component="section" sx={{ mb: 4 }}>
+    <Box component="section" sx={{ mb: 4, "@media print": { breakBefore: "auto" } }}>
       <SectionTitle>Programme détaillé</SectionTitle>
       {sortedDays.map((day) => (
         <PreviewDayDetail key={day.dayNumber} day={day} />
