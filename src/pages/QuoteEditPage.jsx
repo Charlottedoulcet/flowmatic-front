@@ -29,7 +29,11 @@ export default function QuoteEditPage() {
     quoteService
       .getById(id)
       .then((quote) => {
-        form.reset(quote);
+        const sortedQuote = {
+          ...quote,
+          days: [...(quote.days ?? [])].sort((a, b) => a.dayNumber - b.dayNumber),
+        };
+        form.reset(sortedQuote);
         form.setActiveDay(0);
       })
       .catch(() => setLoadError("Impossible de charger le devis. Vérifiez l'URL."))

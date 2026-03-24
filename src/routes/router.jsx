@@ -37,7 +37,6 @@ export const router = createBrowserRouter([
           </RoleRoute>
         ),
       },
-      { path: "/quotes/:id/preview", element: <QuotePreviewPage /> },
       {
         path: "/settings",
         element: (
@@ -55,6 +54,15 @@ export const router = createBrowserRouter([
         ),
       },
     ],
+  },
+
+  {
+    path: "/quotes/:id/preview",
+    element: (
+      <ProtectedRoute>
+        <QuotePreviewPage />
+      </ProtectedRoute>
+    ),
   },
 
   { path: "/", element: <Navigate to="/login" replace /> },

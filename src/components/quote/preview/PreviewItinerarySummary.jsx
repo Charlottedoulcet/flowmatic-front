@@ -12,26 +12,28 @@ import SectionTitle from "./SectionTitle";
 export default function PreviewItinerarySummary({ days }) {
   if (!days?.length) return null;
 
+  const sortedDays = [...days].sort((a, b) => a.dayNumber - b.dayNumber);
+
   return (
     <Box component="section" sx={{ mb: 4 }}>
       <SectionTitle>Itinéraire en bref</SectionTitle>
       <TableContainer component={Paper}>
-        <Table size="small">
+        <Table>
           <TableHead>
             <TableRow>
-              <TableCell>Jour</TableCell>
-              <TableCell>Date</TableCell>
+              <TableCell sx={{ width: "56px" }}>Jour</TableCell>
+              <TableCell sx={{ width: "140px", whiteSpace: "nowrap" }}>Date</TableCell>
               <TableCell>Programme</TableCell>
-              <TableCell>Nuit</TableCell>
+              <TableCell sx={{ width: "160px" }}>Nuit</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {days.map((day) => (
+            {sortedDays.map((day) => (
               <TableRow key={day.dayNumber}>
                 <TableCell>
                   <Typography sx={{ color: "primary.main", fontWeight: 700, fontSize: "13px" }}>J{day.dayNumber}</Typography>
                 </TableCell>
-                <TableCell>{day.date ?? "—"}</TableCell>
+                <TableCell sx={{ whiteSpace: "nowrap" }}>{day.date ?? "—"}</TableCell>
                 <TableCell>{day.summary ?? "—"}</TableCell>
                 <TableCell>{day.nightLocation ?? "—"}</TableCell>
               </TableRow>

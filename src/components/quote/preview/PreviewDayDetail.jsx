@@ -26,13 +26,13 @@ export default function PreviewDayDetail({ day }) {
   ].filter((m) => m.text);
 
   return (
-    <Box sx={{ pb: 2, mb: 2, borderBottom: "1px solid", borderColor: "divider", "&:last-child": { borderBottom: "none" } }}>
-      <Typography variant="h3" sx={{ color: "primary.main", fontWeight: 700, mb: 1 }}>
+    <Box sx={{ pb: 4, mb: 4, borderBottom: "1px solid", borderColor: "divider", "&:last-child": { borderBottom: "none", mb: 0 } }}>
+      <Typography variant="h3" sx={{ color: "primary.main", fontWeight: 700, mb: 1.5 }}>
         Jour {day.dayNumber}
         {day.title ? ` — ${day.title}` : ""}
       </Typography>
 
-      {day.description && <Typography sx={{ lineHeight: 1.7, mb: 1.5 }}>{day.description}</Typography>}
+      {day.description && <Typography sx={{ lineHeight: 1.85, mb: 2 }}>{day.description}</Typography>}
 
       {metaItems.length > 0 && (
         <Box sx={{ display: "flex", alignItems: "center", gap: 1, flexWrap: "wrap" }}>

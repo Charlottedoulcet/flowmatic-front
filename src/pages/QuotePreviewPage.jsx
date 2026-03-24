@@ -83,7 +83,7 @@ export default function QuotePreviewPage() {
 
         <PreviewCoverImage agency={agency} quote={quote} />
 
-        <Box sx={{ maxWidth: 1100, mx: "auto", px: { xs: 2, sm: 6 }, pt: 4, pb: 6 }}>
+        <Box sx={{ bgcolor: "background.paper", maxWidth: 1100, mx: "auto", my: 4, px: { xs: 2, sm: 6 }, pt: 4, pb: 6, borderRadius: 2 }}>
           <PreviewInfoGrid quote={quote} />
           <PreviewTravelWishes travelWishes={quote.travelWishes} />
           <PreviewItinerarySummary days={quote.days} />

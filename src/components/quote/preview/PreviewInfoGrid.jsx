@@ -1,6 +1,6 @@
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import { formatDate } from "../../../utils/formatDate";
+import { formatDate } from "../../../utils/formatData";
 
 function InfoCell({ label, children }) {
   return (
