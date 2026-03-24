@@ -23,6 +23,9 @@ export default function PreviewTopbar({ status, showEdit, onBack, onEdit }) {
         Retour au tableau de bord
       </Button>
       <Box sx={{ display: "flex", gap: 1.5, alignItems: "center" }}>
+        <Button size="small" variant="outlined" startIcon={<DownloadIcon />} onClick={() => window.print()}>
+          Télécharger PDF
+        </Button>
         {showEdit && (
           <Button variant="outlined" size="small" startIcon={<EditIcon />} onClick={onEdit}>
             Modifier
