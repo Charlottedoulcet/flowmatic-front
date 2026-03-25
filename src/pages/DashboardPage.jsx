@@ -33,7 +33,9 @@ export default function DashboardPage() {
 
   const pending = quotes.filter((q) => q.status === "PENDING").length;
   const signed = quotes.filter((q) => q.status === "SIGNED").length;
-  const ca = quotes.reduce((sum, q) => sum + (q.pricePerPerson ?? 0), 0);
+  const ca = quotes
+    .filter((q) => q.status !== "CANCELLED")
+    .reduce((sum, q) => sum + (q.pricePerPerson ?? 0) * (q.participantCount ?? 1), 0);
 
   if (loading) return <Box sx={{ display: "flex", justifyContent: "center", mt: 8 }}><CircularProgress /></Box>;
   if (error) return <Box sx={{ p: 3 }}><Alert severity="error">{error}</Alert></Box>;
