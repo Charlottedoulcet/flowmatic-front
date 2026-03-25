@@ -18,6 +18,7 @@ export default function Navbar({ mobileOpen, onMobileClose }) {
   const theme = useTheme();
   const sidebar = theme.palette.sidebar;
   const isAdmin = hasRole("ADMIN");
+  const isEmployee = hasRole("EMPLOYEE");
 
   function handleLogout() {
     logout();
@@ -74,21 +75,23 @@ export default function Navbar({ mobileOpen, onMobileClose }) {
       </Box>
 
       <Box sx={{ display: "flex", flexDirection: "column", gap: 0.25, px: 1.5 }}>
-        <Typography sx={{ fontSize: "10px", fontWeight: 600, color: "sidebar.sectionLabel", textTransform: "uppercase", letterSpacing: "1px", px: 1.5, pt: 0, pb: 0.5 }}>Devis</Typography>
-
-        <Box component={NavLink} to="/dashboard" end sx={navLinkSx}>
-          <DashboardIcon sx={{ fontSize: 16 }} />
-          Tableau de bord
-        </Box>
-
-        <Box component={NavLink} to="/quotes/new" sx={navLinkSx}>
-          <AddIcon sx={{ fontSize: 16 }} />
-          Nouveau devis
-        </Box>
+        {isEmployee && (
+          <>
+            <Typography sx={{ fontSize: "10px", fontWeight: 600, color: "sidebar.sectionLabel", textTransform: "uppercase", letterSpacing: "1px", px: 1.5, pt: 0, pb: 0.5 }}>Devis</Typography>
+            <Box component={NavLink} to="/dashboard" end sx={navLinkSx}>
+              <DashboardIcon sx={{ fontSize: 16 }} />
+              Tableau de bord
+            </Box>
+            <Box component={NavLink} to="/quotes/new" sx={navLinkSx}>
+              <AddIcon sx={{ fontSize: 16 }} />
+              Nouveau devis
+            </Box>
+          </>
+        )}
 
         {isAdmin && (
           <>
-            <Typography sx={{ fontSize: "10px", fontWeight: 600, color: "sidebar.sectionLabel", textTransform: "uppercase", letterSpacing: "1px", px: 1.5, pt: 2, pb: 0.5 }}>Administration</Typography>
+            <Typography sx={{ fontSize: "10px", fontWeight: 600, color: "sidebar.sectionLabel", textTransform: "uppercase", letterSpacing: "1px", px: 1.5, pt: isEmployee ? 2 : 0, pb: 0.5 }}>Administration</Typography>
             <Box component={NavLink} to="/employees" sx={navLinkSx}>
               <PeopleIcon sx={{ fontSize: 16 }} />
               Employés
@@ -126,7 +129,9 @@ export default function Navbar({ mobileOpen, onMobileClose }) {
           <Typography sx={{ fontSize: "13px", fontWeight: 600, color: "sidebar.textActive", lineHeight: 1.2, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
             {user?.firstName} {user?.lastName?.[0]?.toUpperCase()}.
           </Typography>
-          <Typography sx={{ fontSize: "11px", color: "sidebar.text" }}>{isAdmin ? "Admin" : "Employé"}</Typography>
+          <Typography sx={{ fontSize: "11px", color: "sidebar.text" }}>
+            {isAdmin && isEmployee ? "Admin & Employé" : isAdmin ? "Admin" : "Employé"}
+          </Typography>
         </Box>
       </Box>
 

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate, Link as RouterLink } from "react-router-dom";
+import { useNavigate, useLocation, Link as RouterLink } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import MuiLink from "@mui/material/Link";
@@ -15,6 +15,9 @@ import { authService } from "../services/authService";
 export default function LoginPage() {
   const { login } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
+  const infoMessage = location.state?.message ?? (params.get("roleChanged") ? "Vos droits d'accès ont changé. Reconnectez-vous." : null);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -30,7 +33,8 @@ export default function LoginPage() {
     try {
       const authResponse = await authService.login(data);
       login(authResponse);
-      navigate("/dashboard");
+      const hasEmployee = authResponse.roles?.includes("ROLE_EMPLOYEE");
+      navigate(hasEmployee ? "/dashboard" : "/employees");
     } catch {
       setError("Email ou mot de passe incorrect.");
     } finally {
@@ -81,6 +85,12 @@ export default function LoginPage() {
         <Typography variant="body2" color="text.secondary" textAlign="center" mb={3}>
           Connectez-vous pour accéder à votre espace
         </Typography>
+
+        {infoMessage && (
+          <Alert severity="info" sx={{ mb: 2 }}>
+            {infoMessage}
+          </Alert>
+        )}
 
         {error && (
           <Alert severity="error" sx={{ mb: 2 }}>
