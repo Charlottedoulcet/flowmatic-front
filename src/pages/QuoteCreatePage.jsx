@@ -1,6 +1,11 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useBlocker } from "react-router-dom";
 
 import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogTitle from "@mui/material/DialogTitle";
 import Typography from "@mui/material/Typography";
 
 import QuoteFormBody from "../components/quote/QuoteFormBody";
@@ -10,6 +15,10 @@ import { quoteService } from "../services/quoteService";
 export default function QuoteCreatePage() {
   const navigate = useNavigate();
   const form = useQuoteForm();
+
+  const blocker = useBlocker(({ currentLocation, nextLocation }) =>
+    form.isDirty && currentLocation.pathname !== nextLocation.pathname
+  );
 
   async function onSubmit(data) {
     form.setSaving(true);
@@ -37,6 +46,19 @@ export default function QuoteCreatePage() {
       />
 
       {form.SnackbarComponent}
+
+      <Dialog open={blocker.state === "blocked"} maxWidth="xs" fullWidth>
+        <DialogTitle sx={{ color: "text.primary" }}>Quitter sans enregistrer ?</DialogTitle>
+        <DialogContent>
+          <Typography>Vos modifications seront perdues si vous quittez cette page.</Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => blocker.reset()}>Rester sur la page</Button>
+          <Button variant="contained" color="error" onClick={() => blocker.proceed()}>
+            Quitter sans enregistrer
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 }

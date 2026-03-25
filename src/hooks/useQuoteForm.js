@@ -28,7 +28,7 @@ export function useQuoteForm() {
   const [saving, setSaving] = useState(false);
   const { showSuccess, showError, SnackbarComponent } = useSnackbar();
 
-  const { register, control, handleSubmit, reset, watch, setValue, formState: { errors } } =
+  const { register, control, handleSubmit, reset, watch, setValue, formState: { errors, isDirty } } =
     useForm({ defaultValues: DEFAULT_VALUES });
 
   const destination = watch("destination");
@@ -62,6 +62,7 @@ export function useQuoteForm() {
     reset,
     setValue,
     errors,
+    isDirty,
     destination,
     coverImageUrl,
     dayFields, appendDay, removeDay,

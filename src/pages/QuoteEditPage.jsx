@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useBlocker } from "react-router-dom";
 
+import Alert from "@mui/material/Alert";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import CircularProgress from "@mui/material/CircularProgress";
@@ -24,6 +25,10 @@ export default function QuoteEditPage() {
   const [loadError, setLoadError] = useState(null);
   const [deleteDialog, setDeleteDialog] = useState(false);
   const [deleting, setDeleting] = useState(false);
+
+  const blocker = useBlocker(({ currentLocation, nextLocation }) =>
+    form.isDirty && !deleting && currentLocation.pathname !== nextLocation.pathname
+  );
 
   useEffect(() => {
     quoteService
@@ -115,6 +120,19 @@ export default function QuoteEditPage() {
       </Dialog>
 
       {form.SnackbarComponent}
+
+      <Dialog open={blocker.state === "blocked"} maxWidth="xs" fullWidth>
+        <DialogTitle sx={{ color: "text.primary" }}>Quitter sans enregistrer ?</DialogTitle>
+        <DialogContent>
+          <Typography>Vos modifications seront perdues si vous quittez cette page.</Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => blocker.reset()}>Rester sur la page</Button>
+          <Button variant="contained" color="error" onClick={() => blocker.proceed()}>
+            Quitter sans enregistrer
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 }
