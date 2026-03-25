@@ -9,6 +9,7 @@ import QuoteCreatePage from "../pages/QuoteCreatePage";
 import QuoteEditPage from "../pages/QuoteEditPage";
 import QuotePreviewPage from "../pages/QuotePreviewPage";
 import SettingsPage from "../pages/SettingsPage";
+import EmployeesPage from "../pages/EmployeesPage";
 
 export const router = createBrowserRouter([
   { path: "/login", element: <LoginPage /> },
@@ -50,7 +51,7 @@ export const router = createBrowserRouter([
         path: "/employees",
         element: (
           <RoleRoute role="ADMIN">
-            <div>Employés — T-5.2</div>
+            <EmployeesPage />
           </RoleRoute>
         ),
       },
