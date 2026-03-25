@@ -81,7 +81,16 @@ export default function BrandColors({ agency, onUpdate }) {
             </Typography>
             <Box sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
               <Box
+                role="button"
+                tabIndex={0}
+                aria-label={`Choisir la ${label.toLowerCase()}`}
                 onClick={(e) => openPicker(e, colorKey)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    openPicker(e, colorKey);
+                  }
+                }}
                 sx={{
                   width: 40,
                   height: 40,
@@ -91,6 +100,7 @@ export default function BrandColors({ agency, onUpdate }) {
                   borderColor: "divider",
                   cursor: "pointer",
                   flexShrink: 0,
+                  "&:focus-visible": { outline: "2px solid", outlineColor: "primary.main", outlineOffset: 2 },
                 }}
               />
               <Typography variant="body2" sx={{ color: "text.secondary", fontFamily: "monospace" }}>

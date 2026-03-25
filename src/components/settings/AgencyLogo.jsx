@@ -15,7 +15,7 @@ const ACCEPTED_TYPES = ["image/jpeg", "image/png", "image/webp"];
 export default function AgencyLogo({ agency, onUpdate }) {
   const [uploading, setUploading] = useState(false);
   const fileInputRef = useRef(null);
-  const { showSuccess, showError, SnackBarComponent } = useSnackbar();
+  const { showSuccess, showError, SnackbarComponent } = useSnackbar();
 
   async function handleFileChange(e) {
     const file = e.target.files[0];
@@ -98,7 +98,7 @@ export default function AgencyLogo({ agency, onUpdate }) {
         </Box>
       </Box>
 
-      {SnackBarComponent}
+      {SnackbarComponent}
     </Box>
   );
 }
