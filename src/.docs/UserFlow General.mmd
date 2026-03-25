@@ -1,0 +1,104 @@
+flowchart TD
+
+    %% ─── AUTH ───────────────────────────────────────────────────────────────
+    subgraph AUTH["🔓  Public — Authentication"]
+        direction TB
+        START([Start])
+        HAS_ACCOUNT{"Déjà un compte ?"}
+        REGISTER["📝 Inscription<br/>Creates agency — gets ADMIN + EMPLOYEE roles"]
+        LOGIN["🔐 Connexion"]
+        ROLE_CHECK{"Quel rôle ?"}
+
+        START --> HAS_ACCOUNT
+        HAS_ACCOUNT -- "No" --> REGISTER
+        HAS_ACCOUNT -- "Yes" --> LOGIN
+        REGISTER -- "Auto: ADMIN + EMPLOYEE" --> ROLE_CHECK
+        LOGIN --> ROLE_CHECK
+    end
+
+    %% ─── EMPLOYEE ZONE ──────────────────────────────────────────────────────
+    subgraph EMPLOYEE["👤  EMPLOYEE — Quote management"]
+        direction TB
+
+        DASH["📊 Tableau de bord<br/>Stat cards · Recent quotes list"]
+
+        CREATE_CHOICE{"Comment créer ?"}
+
+        PDF_UP["🤖 Extraction IA<br/>Upload PDF → pre-fills form"]
+
+        FORM["📋 Nouveau devis<br/>General info · Cover image · Days<br/>Inclusions · Supplements · Accommodations · Payment"]
+
+        EDIT_FORM["✏️ Modifier le devis<br/>Same form · pre-filled data"]
+
+        PREVIEW["🎨 Aperçu du devis<br/>Agency branding · logo · colors"]
+
+        PDF["🖨️ Télécharger PDF<br/>Browser print dialog · Save as PDF"]
+
+        CONFIRM["⚠️ Supprimer le devis<br/>Confirmation dialog"]
+
+        STATUS_DLG["🔄 Changer le statut<br/>PENDING · SENT · SIGNED · PAID · CANCELLED"]
+
+        DASH -- "New quote" --> CREATE_CHOICE
+        DASH -- "View preview" --> PREVIEW
+        DASH -- "Edit" --> EDIT_FORM
+        DASH -- "Change status" --> STATUS_DLG
+        DASH -- "Delete" --> CONFIRM
+        CREATE_CHOICE -- "Import PDF" --> PDF_UP
+        CREATE_CHOICE -- "Manually" --> FORM
+        PDF_UP --> FORM
+        FORM -- "Save" --> PREVIEW
+        FORM -- "Cancel" --> DASH
+        EDIT_FORM -- "Save" --> PREVIEW
+        EDIT_FORM -- "Delete quote" --> CONFIRM
+        EDIT_FORM -- "Cancel" --> DASH
+        PREVIEW -- "Download PDF" --> PDF
+        PREVIEW -- "Edit" --> EDIT_FORM
+        PREVIEW -- "Back to dashboard" --> DASH
+        CONFIRM -- "Confirm" --> DASH
+        CONFIRM -- "Cancel" --> DASH
+        STATUS_DLG -- "Save" --> DASH
+        STATUS_DLG -- "Cancel" --> DASH
+    end
+
+    %% ─── ADMIN ZONE ─────────────────────────────────────────────────────────
+    subgraph ADMIN["👑  ADMIN only — Administration"]
+        direction TB
+
+        EMP["👥 Employés<br/>List of agency employees"]
+        SETTINGS["⚙️ Configuration<br/>Logo · Brand colors · CGV"]
+
+        EMP -- "Settings" --> SETTINGS
+        SETTINGS -- "Employees" --> EMP
+    end
+
+    %% ─── ROLE-BASED ROUTING ─────────────────────────────────────────────────
+    ROLE_CHECK -- "EMPLOYEE (or both roles)" --> DASH
+    ROLE_CHECK -- "ADMIN only" --> EMP
+
+    DASH -- "Employees" --> EMP
+    DASH -- "Settings" --> SETTINGS
+    EMP -- "Dashboard" --> DASH
+    SETTINGS -- "Dashboard" --> DASH
+    DASH -- "Logout" --> LOGIN
+
+    %% ─── STYLES ─────────────────────────────────────────────────────────────
+    style AUTH fill:#0a2a1a,color:#fff,stroke:#22C55E,stroke-width:2px
+    style EMPLOYEE fill:#1a1f35,color:#fff,stroke:#3B82F6,stroke-width:2px
+    style ADMIN fill:#2a1a1a,color:#fff,stroke:#EF4444,stroke-width:2px
+
+    style START fill:#1E1E2E,color:#fff,stroke:#22C55E,stroke-width:3px
+    style HAS_ACCOUNT fill:#6366F1,color:#fff,stroke:#4F46E5,stroke-width:2px
+    style ROLE_CHECK fill:#F59E0B,color:#fff,stroke:#D97706,stroke-width:3px
+    style LOGIN fill:#3B82F6,color:#fff,stroke:#2563EB,stroke-width:2px
+    style REGISTER fill:#3B82F6,color:#fff,stroke:#2563EB,stroke-width:2px
+    style DASH fill:#10B981,color:#fff,stroke:#059669,stroke-width:3px
+    style CREATE_CHOICE fill:#6366F1,color:#fff,stroke:#4F46E5,stroke-width:2px
+    style PDF_UP fill:#EC4899,color:#fff,stroke:#DB2777,stroke-width:2px
+    style FORM fill:#8B5CF6,color:#fff,stroke:#7C3AED,stroke-width:2px
+    style EDIT_FORM fill:#8B5CF6,color:#fff,stroke:#7C3AED,stroke-width:2px
+    style PREVIEW fill:#10B981,color:#fff,stroke:#059669,stroke-width:2px
+    style PDF fill:#F59E0B,color:#fff,stroke:#D97706,stroke-width:2px
+    style CONFIRM fill:#EF4444,color:#fff,stroke:#DC2626,stroke-width:2px
+    style STATUS_DLG fill:#6366F1,color:#fff,stroke:#4F46E5,stroke-width:2px
+    style EMP fill:#EF4444,color:#fff,stroke:#DC2626,stroke-width:2px
+    style SETTINGS fill:#EF4444,color:#fff,stroke:#DC2626,stroke-width:2px
