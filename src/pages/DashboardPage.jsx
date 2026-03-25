@@ -1,27 +1,17 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
 import Alert from "@mui/material/Alert";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import CircularProgress from "@mui/material/CircularProgress";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogTitle from "@mui/material/DialogTitle";
-import FormControl from "@mui/material/FormControl";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import Select from "@mui/material/Select";
 import Typography from "@mui/material/Typography";
 import AddIcon from "@mui/icons-material/Add";
-import { useSnackbar } from "../hooks/useSnackbar";
-
 import { useAuth } from "../context/useAuth";
 import { quoteService } from "../services/quoteService";
 import StatCard from "../components/dashboard/StatCard";
 import RecentQuotesList from "../components/dashboard/RecentQuoteList";
-import { ALL_STATUSES } from "../utils/statusConfig";
+import StatusChangeDialog from "../components/dashboard/StatusChangeDialog";
+import DeleteQuoteDialog from "../components/dashboard/DeleteQuoteDialog";
 
 export default function DashboardPage() {
   const navigate = useNavigate();
@@ -30,23 +20,8 @@ export default function DashboardPage() {
   const [quotes, setQuotes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
-  const [statusDialog, setStatusDialog] = useState({
-    open: false,
-    quoteId: null,
-    currentStatus: "",
-    selectedStatus: "",
-    saving: false,
-  });
-
-  const [deleteDialog, setDeleteDialog] = useState({ open: false, quoteId: null });
-  const [deleting, setDeleting] = useState(false);
-
-  const { showSuccess, showError, SnackbarComponent } = useSnackbar();
-
-  const pending = quotes.filter((q) => q.status === "PENDING").length;
-  const signed = quotes.filter((q) => q.status === "SIGNED").length;
-  const ca = quotes.reduce((sum, q) => sum + (q.pricePerPerson ?? 0), 0);
+  const [statusTarget, setStatusTarget] = useState(null);
+  const [deleteTarget, setDeleteTarget] = useState(null);
 
   useEffect(() => {
     quoteService
@@ -56,71 +31,12 @@ export default function DashboardPage() {
       .finally(() => setLoading(false));
   }, []);
 
-  function openStatusDialog(quote) {
-    setStatusDialog({
-      open: true,
-      quoteId: quote.id,
-      currentStatus: quote.status,
-      selectedStatus: quote.status,
-      saving: false,
-    });
-  }
+  const pending = quotes.filter((q) => q.status === "PENDING").length;
+  const signed = quotes.filter((q) => q.status === "SIGNED").length;
+  const ca = quotes.reduce((sum, q) => sum + (q.pricePerPerson ?? 0), 0);
 
-  function closeStatusDialog() {
-    setStatusDialog((prev) => ({ ...prev, open: false }));
-  }
-
-  async function handleStatusSave() {
-    setStatusDialog((prev) => ({ ...prev, saving: true }));
-    try {
-      const updated = await quoteService.updateStatus(statusDialog.quoteId, statusDialog.selectedStatus);
-      setQuotes((prev) => prev.map((q) => (q.id === updated.id ? updated : q)));
-      showSuccess("Statut mis à jour");
-      closeStatusDialog();
-    } catch (err) {
-      const msg = err.response?.data?.message ?? "Transition de statut invalide";
-      showError(msg);
-      setStatusDialog((prev) => ({ ...prev, saving: false }));
-    }
-  }
-
-  function openDeleteDialog(quoteId) {
-    setDeleteDialog({ open: true, quoteId });
-  }
-
-  function closeDeleteDialog() {
-    setDeleteDialog({ open: false, quoteId: null });
-  }
-
-  async function handleDeleteConfirm() {
-    setDeleting(true);
-    try {
-      await quoteService.delete(deleteDialog.quoteId);
-      setQuotes((prev) => prev.filter((q) => q.id !== deleteDialog.quoteId));
-      showSuccess("Devis supprimé");
-      closeDeleteDialog();
-    } catch {
-      showError("Impossible de supprimer le devis. Réessayez.");
-    } finally {
-      setDeleting(false);
-    }
-  }
-
-  if (loading) {
-    return (
-      <Box sx={{ display: "flex", justifyContent: "center", mt: 8 }}>
-        <CircularProgress />
-      </Box>
-    );
-  }
-
-  if (error) {
-    return (
-      <Box sx={{ p: 3 }}>
-        <Alert severity="error">{error}</Alert>
-      </Box>
-    );
-  }
+  if (loading) return <Box sx={{ display: "flex", justifyContent: "center", mt: 8 }}><CircularProgress /></Box>;
+  if (error) return <Box sx={{ p: 3 }}><Alert severity="error">{error}</Alert></Box>;
 
   return (
     <Box>
@@ -141,55 +57,30 @@ export default function DashboardPage() {
       <RecentQuotesList
         quotes={quotes}
         userId={user?.id}
-        onStatusChange={openStatusDialog}
+        onStatusChange={setStatusTarget}
         onView={(id) => navigate(`/quotes/${id}/preview`)}
         onEdit={(id) => navigate(`/quotes/${id}/edit`)}
-        onDelete={openDeleteDialog}
+        onDelete={setDeleteTarget}
         onAddNew={() => navigate("/quotes/new")}
       />
 
-      <Dialog open={statusDialog.open} onClose={closeStatusDialog} maxWidth="xs" fullWidth>
-        <DialogTitle sx={{ color: "text.primary" }}>Changer le statut</DialogTitle>
-        <DialogContent>
-          <FormControl fullWidth sx={{ mt: 1 }}>
-            <InputLabel>Nouveau statut</InputLabel>
-            <Select value={statusDialog.selectedStatus} label="Nouveau statut" onChange={(e) => setStatusDialog((prev) => ({ ...prev, selectedStatus: e.target.value }))}>
-              {ALL_STATUSES.map((s) => (
-                <MenuItem key={s.value} value={s.value}>
-                  {s.label}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={closeStatusDialog} disabled={statusDialog.saving}>
-            Annuler
-          </Button>
-          <Button variant="contained" onClick={handleStatusSave} disabled={statusDialog.saving || statusDialog.selectedStatus === statusDialog.currentStatus}>
-            {statusDialog.saving ? "Enregistrement..." : "Confirmer"}
-          </Button>
-        </DialogActions>
-      </Dialog>
+      <StatusChangeDialog
+        quote={statusTarget}
+        onChanged={(updated) => {
+          setQuotes((prev) => prev.map((q) => (q.id === updated.id ? updated : q)));
+          setStatusTarget(null);
+        }}
+        onClose={() => setStatusTarget(null)}
+      />
 
-      <Dialog open={deleteDialog.open} onClose={closeDeleteDialog} maxWidth="xs" fullWidth>
-        <DialogTitle sx={{ color: "text.primary" }}>Supprimer le devis</DialogTitle>
-        <DialogContent>
-          <Typography color="text.secondary">
-            Cette action est irréversible. Le devis sera définitivement supprimé.
-          </Typography>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={closeDeleteDialog} disabled={deleting}>
-            Annuler
-          </Button>
-          <Button variant="contained" color="error" onClick={handleDeleteConfirm} disabled={deleting}>
-            {deleting ? "Suppression..." : "Supprimer"}
-          </Button>
-        </DialogActions>
-      </Dialog>
-
-      {SnackbarComponent}
+      <DeleteQuoteDialog
+        quoteId={deleteTarget}
+        onDeleted={(id) => {
+          setQuotes((prev) => prev.filter((q) => q.id !== id));
+          setDeleteTarget(null);
+        }}
+        onClose={() => setDeleteTarget(null)}
+      />
     </Box>
   );
 }
