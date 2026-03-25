@@ -79,7 +79,9 @@ export default function QuotePreviewPage() {
   return (
     <ThemeProvider theme={previewTheme}>
       <Box component="main" sx={{ bgcolor: "background.default", minHeight: "100vh", "@media print": { bgcolor: "transparent " } }}>
-        <PreviewTopbar status={quote.status} showEdit={hasRole("EMPLOYEE")} onBack={() => navigate("/dashboard")} onEdit={() => navigate(`/quotes/${id}/edit`)} />
+        <ThemeProvider theme={baseTheme}>
+          <PreviewTopbar status={quote.status} showEdit={hasRole("EMPLOYEE")} onBack={() => navigate("/dashboard")} onEdit={() => navigate(`/quotes/${id}/edit`)} />
+        </ThemeProvider>
 
         <PreviewCoverImage agency={agency} quote={quote} />
 
