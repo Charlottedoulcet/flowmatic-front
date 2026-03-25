@@ -21,6 +21,11 @@ api.interceptors.response.use(
       localStorage.removeItem("user");
       window.location.href = "/login";
     }
+    if (error.response?.status === 403 && !isLoginRequest) {
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+      window.location.href = "/login?roleChanged=1";
+    }
     return Promise.reject(error);
   },
 );

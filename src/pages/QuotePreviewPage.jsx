@@ -78,12 +78,14 @@ export default function QuotePreviewPage() {
 
   return (
     <ThemeProvider theme={previewTheme}>
-      <Box component="main" sx={{ bgcolor: "background.default", minHeight: "100vh" }}>
-        <PreviewTopbar status={quote.status} showEdit={hasRole("EMPLOYEE")} onBack={() => navigate("/dashboard")} onEdit={() => navigate(`/quotes/${id}/edit`)} />
+      <Box component="main" sx={{ bgcolor: "background.default", minHeight: "100vh", "@media print": { bgcolor: "transparent " } }}>
+        <ThemeProvider theme={baseTheme}>
+          <PreviewTopbar status={quote.status} showEdit={hasRole("EMPLOYEE")} onBack={() => navigate("/dashboard")} onEdit={() => navigate(`/quotes/${id}/edit`)} />
+        </ThemeProvider>
 
         <PreviewCoverImage agency={agency} quote={quote} />
 
-        <Box sx={{ bgcolor: "background.paper", maxWidth: 1100, mx: "auto", my: 4, px: { xs: 2, sm: 6 }, pt: 4, pb: 6, borderRadius: 2 }}>
+        <Box sx={{ bgcolor: "background.paper", maxWidth: 1100, mx: "auto", my: 4, px: { xs: 2, sm: 6 }, pt: 4, pb: 6, borderRadius: 2, "@media print": { boxShadow: "none", my: 0, borderRadius: 0, px: 3 } }}>
           <PreviewInfoGrid quote={quote} />
           <PreviewTravelWishes travelWishes={quote.travelWishes} />
           <PreviewItinerarySummary days={quote.days} />

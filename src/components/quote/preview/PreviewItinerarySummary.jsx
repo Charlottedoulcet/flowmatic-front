@@ -17,9 +17,9 @@ export default function PreviewItinerarySummary({ days }) {
   return (
     <Box component="section" sx={{ mb: 4 }}>
       <SectionTitle>Itinéraire en bref</SectionTitle>
-      <TableContainer component={Paper}>
+      <TableContainer component={Paper} sx={{ "@media print": { boxShadow: "none", borderRadius: 0 } }}>
         <Table>
-          <TableHead>
+          <TableHead sx={{ bgcolor: "grey.200", printColorAdjust: "exact", "& th": { color: "text.primary", fontWeight: 600 } }}>
             <TableRow>
               <TableCell sx={{ width: "56px" }}>Jour</TableCell>
               <TableCell sx={{ width: "140px", whiteSpace: "nowrap" }}>Date</TableCell>

@@ -26,7 +26,7 @@ export default function PreviewDayDetail({ day }) {
   ].filter((m) => m.text);
 
   return (
-    <Box sx={{ pb: 4, mb: 4, borderBottom: "1px solid", borderColor: "divider", "&:last-child": { borderBottom: "none", mb: 0 } }}>
+    <Box sx={{ pb: 4, mb: 4, borderBottom: "1px solid", borderColor: "divider", "&:last-child": { borderBottom: "none", mb: 0 }, "@media print": { breakInside: "avoid" } }}>
       <Typography variant="h3" sx={{ color: "primary.main", fontWeight: 700, mb: 1.5 }}>
         Jour {day.dayNumber}
         {day.title ? ` — ${day.title}` : ""}

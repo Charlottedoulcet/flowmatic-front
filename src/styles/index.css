@@ -5,3 +5,32 @@ body {
 #root {
   min-height: 100svh;
 }
+
+@media print {
+  @page {
+    size: A4;
+    margin: 1.5cm 1cm;
+    @top-left { content: none; }
+    @top-center { content: none; }
+    @top-right { content: none; }
+    @bottom-left { content: none; }
+    @bottom-right { content: none; }
+    @bottom-center {
+      content: counter(page);
+      font-size: 10px;
+      color: #999;
+    }
+  }
+
+  body {
+    background-color: white !important;
+  }
+
+  tr {
+    break-inside: avoid;
+  }
+  
+  thead {
+    display: table-header-group;
+  }
+}

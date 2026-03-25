@@ -16,6 +16,7 @@ export default function PreviewCoverImage({ agency, quote }) {
         backgroundImage: quote.coverImageUrl ? `url(${quote.coverImageUrl})` : "none",
         backgroundSize: "cover",
         backgroundPosition: "center",
+        printColorAdjust: "exact",
       }}
     >
       <Box
