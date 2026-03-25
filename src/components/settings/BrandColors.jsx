@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
+import Divider from "@mui/material/Divider";
 import Typography from "@mui/material/Typography";
 import CircularProgress from "@mui/material/CircularProgress";
 import Popover from "@mui/material/Popover";
@@ -52,12 +53,19 @@ export default function BrandColors({ agency, onUpdate }) {
 
   const currentPickerColor = activeColor === "primary" ? primary : secondary;
 
-  return (
-    <Box sx={{ mb: 3, p: 3, bgcolor: "background.paper", borderRadius: 2, border: "1px solid", borderColor: "divider" }}>
-      <Typography variant="h3" sx={{ mb: 2 }}>
-        Couleurs de marque
-      </Typography>
+  function handleReset() {
+    setPrimary(theme.palette.primary.main);
+    setSecondary(theme.palette.text.secondary);
+  }
 
+  return (
+    <Box sx={{ mb: 3, bgcolor: "background.paper", borderRadius: 2, border: "1px solid", borderColor: "divider", overflow: "hidden" }}>
+      <Box sx={{ px: 3, py: 2 }}>
+        <Typography variant="h3">Couleurs de marque</Typography>
+      </Box>
+      <Divider />
+
+      <Box sx={{ px: 3, py: 2.5 }}>
       <Typography variant="body2" sx={{ color: "text.secondary", mb: 2 }}>
         Ces couleurs s'appliquent automatiquement à la preview du devis.
       </Typography>
@@ -105,11 +113,17 @@ export default function BrandColors({ agency, onUpdate }) {
         </Box>
       </Popover>
 
-      <Button variant="contained" onClick={handleSave} disabled={saving} startIcon={saving ? <CircularProgress size={16} color="inherit" /> : null}>
-        {saving ? "Sauvegarde…" : "Sauvegarder les couleurs"}
-      </Button>
+      <Box sx={{ display: "flex", gap: 1.5 }}>
+        <Button variant="contained" onClick={handleSave} disabled={saving} startIcon={saving ? <CircularProgress size={16} color="inherit" /> : null}>
+          {saving ? "Sauvegarde…" : "Sauvegarder les couleurs"}
+        </Button>
+        <Button variant="outlined" onClick={handleReset} disabled={saving}>
+          Réinitialiser
+        </Button>
+      </Box>
 
       {SnackbarComponent}
+      </Box>
     </Box>
   );
 }
