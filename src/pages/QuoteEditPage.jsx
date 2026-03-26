@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate, useParams, useBlocker } from "react-router-dom";
 
 import Alert from "@mui/material/Alert";
@@ -26,8 +26,10 @@ export default function QuoteEditPage() {
   const [deleteDialog, setDeleteDialog] = useState(false);
   const [deleting, setDeleting] = useState(false);
 
+  const submittingRef = useRef(false);
+
   const blocker = useBlocker(({ currentLocation, nextLocation }) =>
-    form.isDirty && !deleting && currentLocation.pathname !== nextLocation.pathname
+    !submittingRef.current && form.isDirty && !deleting && currentLocation.pathname !== nextLocation.pathname
   );
 
   useEffect(() => {
@@ -49,7 +51,7 @@ export default function QuoteEditPage() {
     form.setSaving(true);
     try {
       const updated = await quoteService.update(id, data);
-      form.reset(data);
+      submittingRef.current = true;
       navigate(`/quotes/${updated.id}/preview`);
     } catch (err) {
       const msg = err.response?.data?.message ?? "Erreur lors de l'enregistrement.";
