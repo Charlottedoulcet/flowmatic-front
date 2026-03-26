@@ -49,6 +49,7 @@ export default function QuoteEditPage() {
     form.setSaving(true);
     try {
       const updated = await quoteService.update(id, data);
+      form.reset(data);
       navigate(`/quotes/${updated.id}/preview`);
     } catch (err) {
       const msg = err.response?.data?.message ?? "Erreur lors de l'enregistrement.";
