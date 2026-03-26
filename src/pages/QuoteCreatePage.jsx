@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import { useNavigate, useBlocker } from "react-router-dom";
 
 import Box from "@mui/material/Box";
@@ -15,16 +16,17 @@ import { quoteService } from "../services/quoteService";
 export default function QuoteCreatePage() {
   const navigate = useNavigate();
   const form = useQuoteForm();
+  const submittingRef = useRef(false);
 
   const blocker = useBlocker(({ currentLocation, nextLocation }) =>
-    form.isDirty && currentLocation.pathname !== nextLocation.pathname
+    !submittingRef.current && form.isDirty && currentLocation.pathname !== nextLocation.pathname
   );
 
   async function onSubmit(data) {
     form.setSaving(true);
     try {
       const created = await quoteService.create(data);
-      form.reset(data);
+      submittingRef.current = true;
       navigate(`/quotes/${created.id}/preview`);
     } catch (err) {
       const msg = err.response?.data?.message ?? "Erreur lors de l'enregistrement.";
