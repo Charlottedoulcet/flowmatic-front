@@ -24,6 +24,7 @@ export default function QuoteCreatePage() {
     form.setSaving(true);
     try {
       const created = await quoteService.create(data);
+      form.reset(data);
       navigate(`/quotes/${created.id}/preview`);
     } catch (err) {
       const msg = err.response?.data?.message ?? "Erreur lors de l'enregistrement.";
