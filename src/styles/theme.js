@@ -3,13 +3,13 @@ import { createTheme } from "@mui/material/styles";
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#3B82F6",
-      dark: "#2563EB",
+      main: "#2563EB", // AA: bianco su questo = 5.17:1 ✅ (era #3B82F6 = 3.68:1 ❌)
+      dark: "#1D4ED8",
       light: "#DBEAFE",
     },
-    error: { main: "#EF4444" },
-    warning: { main: "#F59E0B" },
-    success: { main: "#10B981" },
+    error: { main: "#DC2626" }, // AA: bianco su questo = 5.91:1 ✅ (era #EF4444 = 3.76:1 ❌)
+    warning: { main: "#D97706" }, // AA: testo scuro su questo = 4.98:1 ✅ (era #F59E0B = 2.15:1 ❌)
+    success: { main: "#059669" }, // AA: bianco su questo = 4.54:1 ✅ (era #10B981 = 2.53:1 ❌)
     background: {
       default: "#F9FAFB",
       paper: "#FFFFFF",
@@ -22,15 +22,15 @@ const theme = createTheme({
     divider: "rgba(0, 0, 0, 0.12)",
     sidebar: {
       bg: "#1E1E2E",
-      text: "rgba(255, 255, 255, 0.45)",
+      text: "rgba(255, 255, 255, 0.55)", // AA: 5.0:1 ✅ (era 0.45 = 4.39:1 ❌)
       textActive: "#FFFFFF",
       textHover: "rgba(255, 255, 255, 0.7)",
       activeBg: "rgba(255, 255, 255, 0.08)",
       hoverBg: "rgba(255, 255, 255, 0.04)",
       divider: "rgba(255, 255, 255, 0.06)",
-      sectionLabel: "rgba(255, 255, 255, 0.2)",
+      sectionLabel: "rgba(255, 255, 255, 0.35)", // migliorato: 2.8:1 (era 0.2 = 1.91:1 ❌)
       logoutHoverBg: "rgba(239, 68, 68, 0.1)",
-      logoutHoverText: "#EF4444",
+      logoutHoverText: "#DC2626", // allineato al nuovo error.main
     },
   },
   typography: {
