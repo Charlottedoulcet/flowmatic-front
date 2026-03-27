@@ -3,13 +3,13 @@ import { createTheme } from "@mui/material/styles";
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#3B82F6",
-      dark: "#2563EB",
+      main: "#2563EB",
+      dark: "#1D4ED8",
       light: "#DBEAFE",
     },
-    error: { main: "#EF4444" },
-    warning: { main: "#F59E0B" },
-    success: { main: "#10B981" },
+    error: { main: "#DC2626" },
+    warning: { main: "#D97706" },
+    success: { main: "#059669" },
     background: {
       default: "#F9FAFB",
       paper: "#FFFFFF",
@@ -22,15 +22,15 @@ const theme = createTheme({
     divider: "rgba(0, 0, 0, 0.12)",
     sidebar: {
       bg: "#1E1E2E",
-      text: "rgba(255, 255, 255, 0.45)",
+      text: "rgba(255, 255, 255, 0.55)",
       textActive: "#FFFFFF",
       textHover: "rgba(255, 255, 255, 0.7)",
       activeBg: "rgba(255, 255, 255, 0.08)",
       hoverBg: "rgba(255, 255, 255, 0.04)",
       divider: "rgba(255, 255, 255, 0.06)",
-      sectionLabel: "rgba(255, 255, 255, 0.2)",
+      sectionLabel: "rgba(255, 255, 255, 0.35)",
       logoutHoverBg: "rgba(239, 68, 68, 0.1)",
-      logoutHoverText: "#EF4444",
+      logoutHoverText: "#DC2626",
     },
   },
   typography: {
